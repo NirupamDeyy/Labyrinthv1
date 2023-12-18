@@ -23,6 +23,7 @@ public class PlayerShootControl : MonoBehaviour
     public float bulletDrop = 0.0f;
     public ParticleSystem[] muzzleFlash;
     public ParticleSystem hitEffect;
+    public Transform hiteffecttransform;
     public Transform[] raycastOrigins;
     public Transform raycastDestination;
     public TrailRenderer tracerEffect;
@@ -172,7 +173,7 @@ public class PlayerShootControl : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo, distance))
         {
             Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
-            Debug.Log(hitInfo.collider.transform.name);
+            //Debug.Log(hitInfo.collider.transform.name);
             Rigidbody rb = hitInfo.collider.GetComponent<Rigidbody>();
             
             if (rb != null)
@@ -181,17 +182,33 @@ public class PlayerShootControl : MonoBehaviour
             }
             bullet.tracer.transform.position = hitInfo.point;
             bullet.time = maxLifeTime;
-            //Instantiate(hitEffect, hitInfo.transform);
-            /* hitEffect.transform.position = hitInfo.point;
-            hitEffect.transform.forward = hitInfo.normal;
-            hitEffect.Emit(1);*/
+
+            Vector3 pos = hitInfo.point;
+
+            /*Instantiate(hiteffecttransform, hitInfo.transform);
+            hiteffecttransform.transform.position = hitInfo.point;
+            hiteffecttransform.transform.forward = hitInfo.normal;*/
+
             
+            ParticleSystem newHitEffect = Instantiate(hitEffect, hitEffect.transform);
+
+            newHitEffect.transform.position = hitInfo.point;
+            newHitEffect.transform.forward = hitInfo.normal;
+           
+             StartCoroutine(DestroyHitEffect(newHitEffect));
         }
         else
         {
+
             bullet.tracer.transform.position = end;
         }
         
+    }
+
+    private IEnumerator DestroyHitEffect( ParticleSystem hitEffect)
+    {
+        yield return new WaitForSeconds(1);
+        DestroyImmediate(hitEffect.gameObject, true); 
     }
 
     private void FireBullet()

@@ -23,13 +23,13 @@ public class BallPlayerMovement : MonoBehaviour
         Cursor.visible = false;
         parentRigidBody = GetComponent<Rigidbody>();    
     }
-
+    bool isGrounded;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("boost");
-            parentRigidBody.AddForce(transform.up * 4);
+            parentRigidBody.AddForce(transform.up * 4, ForceMode.VelocityChange);
         }
 
 
