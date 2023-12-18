@@ -7436,6 +7436,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529562941}
   m_CullTransparentMesh: 1
+--- !u!1 &540459797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540459798}
+  m_Layer: 0
+  m_Name: RayCastOriginGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &540459798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540459797}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.577, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1210002946}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &554980221
 GameObject:
   m_ObjectHideFlags: 0
@@ -15794,6 +15825,9 @@ MonoBehaviour:
   gunParent: {fileID: 1225367795}
   Ospeed: 400
   resetGunDirection: 0
+  raycastOriginBottom: {fileID: 540459798}
+  maxJumpDistance: 0.1
+  isGrounded: 0
 --- !u!4 &1210002946
 Transform:
   m_ObjectHideFlags: 0
@@ -15810,6 +15844,7 @@ Transform:
   - {fileID: 1841598730}
   - {fileID: 1225367795}
   - {fileID: 1111637873}
+  - {fileID: 540459798}
   m_Father: {fileID: 2115084679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1210002947
@@ -15903,7 +15938,7 @@ MonoBehaviour:
   isFiring: 0
   fireRate: 5
   bulletSpeed: 10
-  bulletDrop: 1
+  bulletDrop: 0.2
   muzzleFlash: []
   hitEffect: {fileID: 4212237911574779970, guid: f34d53a9f8cd409428b8d1e3addf4807,
     type: 3}
@@ -26027,7 +26062,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144036206}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16949217, y: 0.000000018958982, z: -0.0000000032605743, w: 0.98553157}
+  m_LocalRotation: {x: 0.16949217, y: -0.000000018958982, z: 0.0000000032605743, w: 0.98553157}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

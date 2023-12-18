@@ -14,7 +14,8 @@ public class BallPlayerMovement : MonoBehaviour
     public Transform gunParent;
     public float Ospeed;
     public bool resetGunDirection;
-    private Tween gunTween;
+    [SerializeField] private Transform raycastOriginBottom;
+    [SerializeField] private float maxJumpDistance;
     Vector3 forward;
     Quaternion nRotation;
     private void Start()
@@ -23,15 +24,34 @@ public class BallPlayerMovement : MonoBehaviour
         Cursor.visible = false;
         parentRigidBody = GetComponent<Rigidbody>();    
     }
-    bool isGrounded;
+   public bool isGrounded;
+
+    private void FixedUpdate()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(raycastOriginBottom.position, -raycastOriginBottom.up, out hit, 100f))
+        {
+            if (hit.distance < maxJumpDistance)
+            {
+                isGrounded = true;
+            }
+            else
+            {
+                isGrounded = false;
+            }
+        }
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            Debug.Log("boost");
+            isGrounded = true;
             parentRigidBody.AddForce(transform.up * 4, ForceMode.VelocityChange);
         }
-
+        
+       
 
         forward = Camera.main.transform.forward;
         nRotation = Quaternion.LookRotation(forward, Vector3.up);

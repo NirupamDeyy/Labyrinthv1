@@ -28,7 +28,7 @@ public class MissileContact : MonoBehaviour
             Instantiate(explosionPrefab, position, rotation);
         }
         
-        //Destroy(gameObject);
+        Destroy(gameObject);
         
     }
 
