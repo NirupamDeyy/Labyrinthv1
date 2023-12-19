@@ -10,6 +10,7 @@ public class GeneralController : MonoBehaviour
     {
         public Timer timer;
         public ItemTracking itemTracking;
+        public ShowInfoTextScript showInfoTextScript;
     }
 
     [System.Serializable]
@@ -101,6 +102,7 @@ public class GeneralController : MonoBehaviour
 
         else
         {
+            scriptsReferences.showInfoTextScript.ShowInfoText("Place the remaining objects", 3);
             Debug.Log("place the remaining objects");
         }
         

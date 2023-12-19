@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 public class Timer : MonoBehaviour
 {
+    public ShowInfoTextScript showInfoTextScript;
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
     public TMP_Text showTime;
@@ -16,6 +17,7 @@ public class Timer : MonoBehaviour
     {
         initialTime = mins;
         timeRemaining = mins * 60;
+        showInfoTextScript.ShowInfoText("Duration is Set to: " + mins + " mins. ", 0);
     }
 
     public void StartTimer()

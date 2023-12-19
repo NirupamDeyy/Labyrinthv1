@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class ItemTracking : MonoBehaviour
 {
+    [SerializeField]
+    private ShowInfoTextScript showInfoText;
     [SerializeField] 
     private TMP_Text[] itemTexts;
     public CoinsTracker coinsTracker;
@@ -50,28 +53,49 @@ public class ItemTracking : MonoBehaviour
     }
     public void SavePositionsOfItems(int ID, bool isPlacin, Vector3Int pos)
     {
-        if(isPlacin)
+        
+        if (isPlacin)
         {
-            switch (ID)
+            if (FloorPositions.Contains(pos) || wallPositions.Contains(pos))
             {
-                case 1:
-                    //save position of ID 0
+                showInfoText.ShowInfoText("Cannot Place Here.", 2);
+            }
+            else
+            {
+                switch (ID)
+                {
+                    case 1:
+                        //save position of ID 0
 
-                    FloorPositions.Add(pos);
-          
-                    break;
-                case 2:
-                    //save position of ID 1
-                    wallPositions.Add(pos);
-                    break;
-                default:
+                        FloorPositions.Add(pos);
+                        showInfoText.ShowInfoText("Coin Placed at " + pos + " .", 0);
+                        break;
+                    case 2:
+                        //save position of ID 1
+                        wallPositions.Add(pos);
+                        showInfoText.ShowInfoText("Wall Placed at " + pos + " .", 0);
 
-                    break;
+                        break;
+                    default:
+
+                        break;
+
+                }
+            }
+           
+        }
+        else if (!isPlacin)
+        {
+            if (FloorPositions.Contains(pos))
+            {
+                showInfoText.ShowInfoText("Coin Removed From " + pos + " .", 1);
 
             }
-        }
-        else if(!isPlacin)
-        {          
+            else if (wallPositions.Contains(pos))
+            {
+                showInfoText.ShowInfoText("Wall Removed From " + pos + " .", 1);
+
+            }
             FloorPositions.Remove(pos);
             wallPositions.Remove(pos);
         }
@@ -111,7 +135,7 @@ public class ItemTracking : MonoBehaviour
         }
         else
         {
-            Debug.Log("select an Item");
+            showInfoText.ShowInfoText("Please Select An Item", 1);
             return false;
             
         }
