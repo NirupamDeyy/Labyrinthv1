@@ -24,7 +24,7 @@ public class BallPlayerMovement : MonoBehaviour
         Cursor.visible = false;
         parentRigidBody = GetComponent<Rigidbody>();    
     }
-   public bool isGrounded;
+    public bool isGrounded;
 
     private void FixedUpdate()
     {
@@ -32,6 +32,7 @@ public class BallPlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(raycastOriginBottom.position, -raycastOriginBottom.up, out hit, 100f))
         {
+          
             if (hit.distance < maxJumpDistance)
             {
                 isGrounded = true;
@@ -44,14 +45,13 @@ public class BallPlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             isGrounded = true;
             parentRigidBody.AddForce(transform.up * 4, ForceMode.VelocityChange);
         }
         
-       
+
 
         forward = Camera.main.transform.forward;
         nRotation = Quaternion.LookRotation(forward, Vector3.up);

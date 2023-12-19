@@ -78,7 +78,13 @@ public class ActionUIconrol : MonoBehaviour
 
     public void ShowWinText(int totalscore)
     {
-        winText.text = "MISSION PASSED, " + totalscore + " COLLECTED IN: " + timer.showTime + " mins. ";
+        float time = timer.GetTimePassed();
+        winText.text = "MISSION PASSED, " + totalscore + " COLLECTED IN: " + time + " mins. ";
     }
 
-  }
+    public void ShowTimeUpText()
+    {
+       winText.text = "MISSION FAILED, TIME IS UP.";
+    }
+
+}

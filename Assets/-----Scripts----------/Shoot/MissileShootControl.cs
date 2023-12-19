@@ -91,7 +91,7 @@ public class MissileShootControl : MonoBehaviour
                     Vector3 direction = (targetPoint2.position - targetPoint.position).normalized;
                     Debug.DrawRay(targetPoint.position, direction * 20f, Color.red);
                     missileRigidbody.AddForce(direction * missileForce, ForceMode.Impulse);
-                    Debug.Log("Reached the target1!");
+              
 
                     
                 });

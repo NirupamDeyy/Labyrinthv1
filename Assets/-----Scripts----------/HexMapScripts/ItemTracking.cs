@@ -12,14 +12,41 @@ public class ItemTracking : MonoBehaviour
     public int[] maxItemCounts;
 
     [SerializeField]
+    private int[] itemsLeft;
+
+    [SerializeField]
     public  List<Vector3Int> wallPositions = new();
     [SerializeField]
     public List<Vector3Int> FloorPositions = new();
 
+    private void Start()
+    {
+        OnMaxNumberChange();
+    }
     public void OnMaxNumberChange()
     {
+        itemsLeft[0] = maxItemCounts[0];
+        itemsLeft[1] = maxItemCounts[1];
         itemTexts[0].text = maxItemCounts[0].ToString();
         itemTexts[1].text = maxItemCounts[1].ToString();    
+    }
+
+    public bool AllItemsPlaced()
+    {
+        int cacheSumNum = 0;
+        for (int i = 0; i < itemsLeft.Length; i++ )
+        {
+            cacheSumNum += itemsLeft[i];
+        }
+
+        if ( cacheSumNum <= 0 )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public void SavePositionsOfItems(int ID, bool isPlacin, Vector3Int pos)
     {
@@ -53,6 +80,8 @@ public class ItemTracking : MonoBehaviour
 
     private void UpdateItemTexts()
     {
+        itemsLeft[0] = (maxItemCounts[0] - FloorPositions.Count);
+        itemsLeft[1] = (maxItemCounts[1] - wallPositions.Count);
         itemTexts[0].text = (maxItemCounts[0] - FloorPositions.Count).ToString();
         itemTexts[1].text = (maxItemCounts[1] - wallPositions.Count).ToString();
 
@@ -65,20 +94,27 @@ public class ItemTracking : MonoBehaviour
         //Debug.Log(ID);
         itemsCount.Clear();
         itemsCount.Insert(0, FloorPositions.Count);
-        itemsCount.Insert(1, wallPositions.Count);  
-        
+        itemsCount.Insert(1, wallPositions.Count);
+
         /*itemsCount[0] = FloorPositions.Count;
         itemsCount[1] = wallPositions.Count;*/
-        
-        if (itemsCount[ID - 1] < maxItemCounts[ID - 1] )
+        if(ID > 0)
         {
-            return false;
+            if (itemsCount[ID - 1] < maxItemCounts[ID - 1])
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         else
         {
-            return true;
+            Debug.Log("select an Item");
+            return false;
+            
         }
-   
     }
 
 }

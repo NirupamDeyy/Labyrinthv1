@@ -9,6 +9,7 @@ public class GeneralController : MonoBehaviour
     public class ScriptsReferences
     {
         public Timer timer;
+        public ItemTracking itemTracking;
     }
 
     [System.Serializable]
@@ -45,6 +46,7 @@ public class GeneralController : MonoBehaviour
 
     private void Start()
     {
+        SetDefaultTimeFunction();
         uiElements.durationRect.gameObject.SetActive(false);
         durationValue = 2;
         buttons.startGame.onClick.AddListener(() => StartGameFunction());
@@ -90,9 +92,18 @@ public class GeneralController : MonoBehaviour
 
     public void StartGameFunction()
     {
-        environments.actionEnvironment.gameObject.SetActive(true);
-        environments.strategyEnvironment.gameObject.SetActive(false);
-        scriptsReferences.timer.StartTimer();
+        if(scriptsReferences.itemTracking.AllItemsPlaced())
+        {
+            environments.actionEnvironment.gameObject.SetActive(true);
+            environments.strategyEnvironment.gameObject.SetActive(false);
+            scriptsReferences.timer.StartTimer();
+        }
+
+        else
+        {
+            Debug.Log("place the remaining objects");
+        }
+        
     }
 
 }

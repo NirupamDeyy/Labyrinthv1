@@ -5,9 +5,16 @@ public class Timer : MonoBehaviour
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
     public TMP_Text showTime;
+    public ActionUIconrol actionUIconrol;
+    float initialTime;
 
+    private void Start()
+    {
+        
+    }
     public void SetDuration(int mins)
     {
+        initialTime = mins;
         timeRemaining = mins * 60;
     }
 
@@ -21,6 +28,10 @@ public class Timer : MonoBehaviour
         showTime.text = ((int)time / 60) + "." + ((int)(time % 60)); 
     }
 
+    public float GetTimePassed()
+    {
+        return initialTime -  timeRemaining/60;
+    }
 
     void Update()
     {
@@ -44,6 +55,7 @@ public class Timer : MonoBehaviour
 
     private void TimeEndedFunction()
     {
-
+        actionUIconrol.Pause();
+        actionUIconrol.ShowTimeUpText();
     }
 }

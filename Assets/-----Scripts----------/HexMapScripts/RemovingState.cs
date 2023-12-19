@@ -64,7 +64,7 @@ public class RemovingState : IBuildingState
 
         Vector3 cellPosition = grid.CellToWorld(gridPosition);
         previewSystem.UpdatePosition(cellPosition, checkIfSelectionIsValid(gridPosition));
-        Debug.Log("placing structure number " +  "at: " + gridPosition);
+        //Debug.Log("placing structure number " +  "at: " + gridPosition);
 
     }
 

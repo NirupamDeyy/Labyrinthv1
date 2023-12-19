@@ -38,14 +38,7 @@ public class ObjectPlacer : MonoBehaviour
             Vector3 newPos = new Vector3(position.x, position.y, position.z);
             Renderer renderer = newObject.GetComponentInChildren<Renderer>();
             Material childMat = renderer.material;
-            /* Color randomColor = UnityEngine.Random.ColorHSV(
-                                                               Mathf.Min(startingColor.r, endingColor.r),
-                                                               Mathf.Max(startingColor.r, endingColor.r),
-                                                               Mathf.Min(startingColor.g, endingColor.g),
-                                                               Mathf.Max(startingColor.g, endingColor.g),
-                                                               Mathf.Min(startingColor.b, endingColor.b),
-                                                               Mathf.Max(startingColor.b, endingColor.b)
-                                                             );*/
+            
             Color randomColor = new Color(Random.Range(startingColor.r, endingColor.r),
                                           Random.Range(startingColor.g, endingColor.g),
                                           Random.Range(startingColor.b, endingColor.b));
@@ -55,12 +48,8 @@ public class ObjectPlacer : MonoBehaviour
             }
             newObject.transform.position = newPos;
         }
-        
 
-
-        
         placedGameObject.Add(newObject);
-       
 
         //Debug.Log(placedGameObject.Count - 1);
         return placedGameObject.Count - 1;

@@ -34,14 +34,15 @@ public class SetItems : MonoBehaviour
         openItemSetterRect.onClick.AddListener(() => OpenCloseItemSetterRect());
         coinSlider.onValueChanged.AddListener(delegate { CoinNumberValueChange(); });
         HexWallSlider.onValueChanged.AddListener(delegate { HexWallNumberValueChange(); });
-
+        SetDefaultNumberOfItems();
+        SetTotalNumberOfItems();
     }
 
     int totalCoin, totalHexWall;
     private void SetDefaultNumberOfItems()
     {
-        coinSlider.value = 10;
-        HexWallSlider.value = 20;
+        coinSlider.value = 5;
+        HexWallSlider.value = 10;
         CoinNumberValueChange();
         HexWallNumberValueChange();
     }

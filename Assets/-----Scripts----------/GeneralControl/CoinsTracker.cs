@@ -10,13 +10,18 @@ public class CoinsTracker : MonoBehaviour
     public GunSwitchControl gunSwitchControl;
     [SerializeField] private int totalNumberOfCoins;
     [SerializeField] private List<GameObject> coins;
-    public int coinsCollected;
+    public int coinsCollected;//updated from general player func
     public ActionUIconrol actionUIconrol;
+
+    void FixedUpdate()
+    {
+        SetTotalNumberOfCoins();
+    }
     public void SetTotalNumberOfCoins()
     {
-        coinsCollected = 0;
+        
         totalNumberOfCoins = itemTracking.maxItemCounts[0];
-        checkWinSituation(coinsCollected, totalNumberOfCoins);
+        CheckWinSituation(coinsCollected, totalNumberOfCoins);
         if(isActiveAndEnabled)
         {
             gunSwitchControl.totalCoinsText.text = totalNumberOfCoins.ToString();
@@ -37,10 +42,12 @@ public class CoinsTracker : MonoBehaviour
         coins.Add(coinPrefab);
     }
 
-    private void checkWinSituation(int currentCoin, int totalCoin)
+    private void CheckWinSituation(int currentCoin, int totalCoin)
     {
+       // Debug.Log("checking if current coin=" + currentCoin + "is equal to total coins: " + totalCoin  );
         if(currentCoin >= totalCoin)
         {
+            
             YouWon();
         }
     }
@@ -53,8 +60,5 @@ public class CoinsTracker : MonoBehaviour
 
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
-        SetTotalNumberOfCoins();
-    }
+    
 }
