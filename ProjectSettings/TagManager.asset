@@ -9,6 +9,7 @@ TagManager:
   - MissileTargetPoint
   - coin
   - player
+  - playerCatcherCollider
   layers:
   - Default
   - TransparentFX

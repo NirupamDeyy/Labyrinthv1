@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BallPlayerMovement : MonoBehaviour
 {
+    [SerializeField] private BoxCollider playerCatcherCollider;
+    public ImageFaderScript imageFaderScript;
+    public ActionUIconrol actionUIconrol;
     public float speed = 5.0f;
     public float rotationSpeed = 2.0f;
     public float rotationDamping = 0.5f;
@@ -24,7 +27,7 @@ public class BallPlayerMovement : MonoBehaviour
         Cursor.visible = false;
         parentRigidBody = GetComponent<Rigidbody>();    
     }
-    public bool isGrounded;
+    public bool isGrounded = true;
 
     private void FixedUpdate()
     {
@@ -32,7 +35,8 @@ public class BallPlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(raycastOriginBottom.position, -raycastOriginBottom.up, out hit, 100f))
         {
-          
+            //Debug.DrawRay(raycastOriginBottom.position, -raycastOriginBottom.up);
+            //Debug.Log(hit.distance);
             if (hit.distance < maxJumpDistance)
             {
                 isGrounded = true;
@@ -41,13 +45,30 @@ public class BallPlayerMovement : MonoBehaviour
             {
                 isGrounded = false;
             }
+       
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "playerCatcherCollider")
+        {
+            Debug.Log("why you jumped");
+            imageFaderScript.FadeImageMethod(2, false);
+            Invoke("ShowPauseMenu", 2);
+        }
+    }
+
+    private void ShowPauseMenu()
+    {
+        actionUIconrol.Pause();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            isGrounded = true;
+            isGrounded = false;
             parentRigidBody.AddForce(transform.up * 4, ForceMode.VelocityChange);
         }
         
