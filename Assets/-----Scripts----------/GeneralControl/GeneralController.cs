@@ -10,7 +10,10 @@ public class GeneralController : MonoBehaviour
     {
         public Timer timer;
         public ItemTracking itemTracking;
+        public InputManager inputManager;
+        public PlacementSystem placementSystem;
         public ShowInfoTextScript showInfoTextScript;
+        public ImageFaderScript imageFaderScript;
     }
 
     [System.Serializable]
@@ -31,6 +34,7 @@ public class GeneralController : MonoBehaviour
     [System.Serializable]
     public class Buttons
     {
+        public Button quitGame;
         public Button startGame;
         public Button openDurationRect;
         public Button closeDurationRect;
@@ -42,11 +46,12 @@ public class GeneralController : MonoBehaviour
 
     public ScriptsReferences scriptsReferences;
     public Environments environments;
-    public UIElements uiElements;   
+    public UIElements uiElements;
     public Buttons buttons;
 
     private void Start()
     {
+
         SetDefaultTimeFunction();
         uiElements.durationRect.gameObject.SetActive(false);
         durationValue = 2;
@@ -55,7 +60,19 @@ public class GeneralController : MonoBehaviour
         buttons.closeDurationRect.onClick.AddListener(() => CloseDurationRectFunction());
         buttons.SetDefaultTime.onClick.AddListener(() => SetDefaultTimeFunction());
         buttons.setDuration.onClick.AddListener(() => SetDurationFunction());
+        buttons.quitGame.onClick.AddListener(() => QuitGame());
         uiElements.durationSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+    }
+
+    private void QuitGame()
+    {
+        scriptsReferences.imageFaderScript.FadeImageMethod(2, false);
+        Invoke("QuitGameDelayed", 2f);
+
+    }
+    private void QuitGameDelayed()
+    {
+        Application.Quit();
     }
 
     private void SetDurationFunction()
@@ -86,18 +103,18 @@ public class GeneralController : MonoBehaviour
 
     private void ValueChangeCheck()
     {
-         float x = uiElements.durationSlider.value;
-         uiElements.duration.text = x + " mins";
-         durationValue = (int)x;
+        float x = uiElements.durationSlider.value;
+        uiElements.duration.text = x + " mins";
+        durationValue = (int)x;
     }
 
     public void StartGameFunction()
     {
-        if(scriptsReferences.itemTracking.AllItemsPlaced())
+        if (scriptsReferences.itemTracking.AllItemsPlaced())
         {
-            environments.actionEnvironment.gameObject.SetActive(true);
-            environments.strategyEnvironment.gameObject.SetActive(false);
-            scriptsReferences.timer.StartTimer();
+            scriptsReferences.placementSystem.StopPlacement();  
+            scriptsReferences.imageFaderScript.FadeImageMethod(2, true);
+            Invoke("StartGameDelayed", 2f);
         }
 
         else
@@ -105,7 +122,14 @@ public class GeneralController : MonoBehaviour
             scriptsReferences.showInfoTextScript.ShowInfoText("Place the remaining objects", 3);
             Debug.Log("place the remaining objects");
         }
-        
+
+    }
+
+    public void StartGameDelayed()
+    {
+        environments.actionEnvironment.gameObject.SetActive(true);
+        environments.strategyEnvironment.gameObject.SetActive(false);
+        scriptsReferences.timer.StartTimer();
     }
 
 }

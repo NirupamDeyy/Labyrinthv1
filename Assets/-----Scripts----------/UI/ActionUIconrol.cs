@@ -20,6 +20,8 @@ public class ActionUIconrol : MonoBehaviour
 
     public void Start()
     {
+        resume.gameObject.SetActive(true);
+
         pauseMenuUI.SetActive(false);
         playerShootControl = player.GetComponent<PlayerShootControl>();
         missileShootControl = player.GetComponent<MissileShootControl>();
@@ -37,8 +39,12 @@ public class ActionUIconrol : MonoBehaviour
 
     private void Restart()
     {
+
         Resume();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("Scene1");
+
     }
 
     void Update()
@@ -50,6 +56,12 @@ public class ActionUIconrol : MonoBehaviour
             else
                 Pause();
         }
+    }
+
+    public void PauseWithoutResumeButton()
+    {
+        Pause();
+        resume.gameObject.SetActive(false); 
     }
 
     public void Pause()
@@ -78,8 +90,8 @@ public class ActionUIconrol : MonoBehaviour
 
     public void ShowWinText(int totalscore)
     {
-        float time = timer.GetTimePassed();
-        winText.text = "MISSION PASSED, " + totalscore + " COLLECTED IN: " + time + " mins. ";
+        string time = timer.GetTimePassed();
+        winText.text = "MISSION PASSED, " + totalscore + " COINS COLLECTED IN: " + time + " mins. ";
     }
 
     public void ShowTimeUpText()

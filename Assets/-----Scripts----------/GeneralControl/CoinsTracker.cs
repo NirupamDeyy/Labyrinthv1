@@ -7,6 +7,7 @@ public class CoinsTracker : MonoBehaviour
 {
     public ItemTracking itemTracking;
     public ObjectPlacer objectplacer;
+    public ImageFaderScript imageFaderScript;
     public GunSwitchControl gunSwitchControl;
     [SerializeField] private int totalNumberOfCoins;
     [SerializeField] private List<GameObject> coins;
@@ -54,9 +55,18 @@ public class CoinsTracker : MonoBehaviour
 
     private void YouWon()
     {
-        actionUIconrol.Pause();
         actionUIconrol.ShowWinText(coinsCollected);
+
+        imageFaderScript.FadeImageMethod(2, false);
+        Invoke("YouWonDelayed", 2);
     }
+
+    private void YouWonDelayed()
+    {
+        actionUIconrol.PauseWithoutResumeButton();
+    }
+
+
 
 
     // Update is called once per frame

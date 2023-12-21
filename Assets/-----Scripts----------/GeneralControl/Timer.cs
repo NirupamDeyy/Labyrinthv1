@@ -3,11 +3,11 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public ShowInfoTextScript showInfoTextScript;
-    public float timeRemaining = 10;
+    public float timeRemaininginSecs = 120;
     public bool timerIsRunning = false;
     public TMP_Text showTime;
     public ActionUIconrol actionUIconrol;
-    float initialTime;
+    float initialTime = 2f;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class Timer : MonoBehaviour
     public void SetDuration(int mins)
     {
         initialTime = mins;
-        timeRemaining = mins * 60;
+        timeRemaininginSecs = mins * 60;
         showInfoTextScript.ShowInfoText("Duration is Set to: " + mins + " mins. ", 0);
     }
 
@@ -30,25 +30,26 @@ public class Timer : MonoBehaviour
         showTime.text = ((int)time / 60) + "." + ((int)(time % 60)); 
     }
 
-    public float GetTimePassed()
+    public string GetTimePassed()
     {
-        return initialTime -  timeRemaining/60;
+        float timeleftinSecs = initialTime * 60 - timeRemaininginSecs;
+        return ((int)timeleftinSecs / 60) + "." + ((int)(timeleftinSecs % 60));
     }
 
     void Update()
     {
         if (timerIsRunning)
         {
-            if (timeRemaining > 0)
+            if (timeRemaininginSecs > 0)
             {
-                timeRemaining -= Time.deltaTime;
+                timeRemaininginSecs -= Time.deltaTime;
 
-                ChangeTimeText(timeRemaining);
+                ChangeTimeText(timeRemaininginSecs);
             }
             else
             {
                 Debug.Log("Time has run out!");
-                timeRemaining = 0;
+                timeRemaininginSecs = 0;
                 timerIsRunning = false;
                 TimeEndedFunction();
             }

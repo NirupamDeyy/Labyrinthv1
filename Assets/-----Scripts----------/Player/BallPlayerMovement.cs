@@ -61,7 +61,7 @@ public class BallPlayerMovement : MonoBehaviour
 
     private void ShowPauseMenu()
     {
-        actionUIconrol.Pause();
+        actionUIconrol.PauseWithoutResumeButton();
     }
 
     private void Update()

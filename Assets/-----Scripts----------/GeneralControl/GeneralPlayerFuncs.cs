@@ -14,7 +14,6 @@ public class GeneralPlayerFuncs : MonoBehaviour
     private void Start()
     {
         updatedCoinCount = 0;
-        
     }
     public void OnTriggerEnter(Collider other)
     {

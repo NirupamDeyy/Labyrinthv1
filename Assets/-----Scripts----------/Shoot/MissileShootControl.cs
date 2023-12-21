@@ -20,9 +20,9 @@ public class MissileShootControl : MonoBehaviour
 
 
 
-    /*[SerializeField]
-    private MissileLightControl missileLightControl;
-*/
+    [SerializeField]
+    private MissileFireIndicator missileFireIndicator;
+
     public Transform targetPoint; 
     public Transform targetPoint2;
    
@@ -38,14 +38,14 @@ public class MissileShootControl : MonoBehaviour
     bool update;
     private void Awake()
     {
-        //missileLightControl = GetComponent<MissileLightControl>();
+        missileFireIndicator = GetComponent<MissileFireIndicator>();
         
     }
     private void Update()
     {
         if (missileTargetPointScript.canUpdate && update)
         {
-            //missileLightControl.Reset() ;
+            missileFireIndicator.ResetIndicator() ;
             update = false;
         }
         
@@ -60,7 +60,7 @@ public class MissileShootControl : MonoBehaviour
 
     private void ShootMissile()
     {
-       // missileLightControl.DecreaseWithTime();
+       missileFireIndicator.Indicate();
 
         if (missileTargetPointScript.canUpdate)
         {

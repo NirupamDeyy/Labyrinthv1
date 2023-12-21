@@ -9,6 +9,9 @@ public class PlacementSystem : MonoBehaviour
     private ItemTracking itemTracking;
 
     [SerializeField]
+    private ShowInfoTextScript showInfoTextScript;
+
+    [SerializeField]
     private InputManager inputManager;
     [SerializeField]
     private Grid grid;
@@ -85,8 +88,18 @@ public class PlacementSystem : MonoBehaviour
 
     private void PlaceStructure()
     {
+         
         if(itemTracking.CanPlaceItems(itemIDCache) && isPlacing)
         {
+            if(itemIDCache == 1)
+            {
+                showInfoTextScript.ShowInfoText("No Coin Left", 2);
+            }
+            else if(itemIDCache == 2)
+            {
+                showInfoTextScript.ShowInfoText("No Tile Left", 2);
+
+            }
             return;
         }
 
@@ -105,9 +118,10 @@ public class PlacementSystem : MonoBehaviour
         buildingState.OnAction(gridPosition);
 
         itemTracking.SavePositionsOfItems(itemIDCache, isPlacing, gridPosition);///////////
+       //
     }
 
-    private void StopPlacement()
+    public void StopPlacement()
     {
         if(buildingState == null)
             return;

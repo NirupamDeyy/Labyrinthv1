@@ -7,6 +7,7 @@ public class ImageFaderScript : MonoBehaviour
 
     private void Start()
     {
+        DOTween.Clear(fadingImage);
         fadingImage.gameObject.SetActive(false);
         //FadeImageMethod(2, false);
     }
