@@ -1,6 +1,7 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
@@ -45,6 +46,7 @@ public class PlacementSystem : MonoBehaviour
 
     IBuildingState buildingState;
 
+
     private void Start()
     {
         StopPlacement();
@@ -59,7 +61,6 @@ public class PlacementSystem : MonoBehaviour
         //Switch
         itemIDCache = ID;
         
-
         gridVisualization.SetActive(true);
         buildingState = new PlacementState(ID,
                                            grid,
@@ -73,11 +74,20 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit += StopPlacement;
     }
 
-    
+    public void RemoveAll()
+    {
+        for (int x = -11; x <= 11; x++)
+        {
+            for (int y = -5; y <= 7; y++)
+            {
+
+            }
+        }
+    }
 
     public void StartRemoving()
     {
-
+        Debug.Log("startRemoving");
         StopPlacement();
         isPlacing = false;
         gridVisualization.SetActive(true);
@@ -85,7 +95,86 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
+    public bool canGenerate = false;
+    Vector3Int newPos;
+    public int xOrigin, yorigin;
+    public bool removeAll;
 
+    public void RemoveAllItems()
+    {
+        Debug.Log("Removing all");
+        StartRemoving();
+        removeAll = true;
+        createProceduraly = true;
+        canGenerate = true;
+        Invoke("iswhatfalse", 1f);
+        
+    }
+
+    private void iswhatfalse()
+    {
+        canGenerate = false;
+        createProceduraly = false;
+        removeAll = false;
+    }
+    public IEnumerator  GenerateProceduralMap()
+    {
+        RemoveAllItems();
+        yield return new WaitForSeconds(1);
+        StartPlacement(1);
+        createProceduraly = true;
+        canGenerate = true;
+        yield return new WaitForSeconds(1);
+        iswhatfalse();
+    }
+    private void CreateProceduralMap( )
+    {
+        //Assign new position
+        int[,] pos = new int[14,18];
+        
+        newPos = new Vector3Int();
+        int i = 300;
+
+        for (int a = 0; a < 12; a++)
+        {
+            for (int x = -a; x <= a; x++)
+            {
+                for (int y = -5; y <= 7; y++)
+                {
+                    if (i > 0 ) 
+                    {
+                        newPos = new Vector3Int(x, y, 0);
+                        bool RandomBool = Random.value > 0.95;
+                        if (RandomBool && ! removeAll)
+                        {
+                            PlaceStructure();
+                            i--;
+                        }
+
+                        if (removeAll)
+                        {
+                            PlaceStructure();
+                            
+                        }
+                    }
+                }
+            }
+        
+        }
+
+        
+    }
+
+    IEnumerator GenerateTile( Vector3Int pos)
+    {
+        yield return new WaitForSeconds(10);
+        Debug.Log(pos);
+        newPos = pos;
+        PlaceStructure();
+    }
+    public bool createProceduraly;
+
+  
     private void PlaceStructure()
     {
          
@@ -113,10 +202,19 @@ public class PlacementSystem : MonoBehaviour
             return;
         }*/
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
-        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+        Vector3Int gridPosition;
+        if (!createProceduraly)
+        {
+            gridPosition = grid.WorldToCell(mousePosition);
+        }
+        else
+        {
+            gridPosition = newPos;
+        }
+        
 
         buildingState.OnAction(gridPosition);
-
+        //Debug.Log(gridPosition);
         itemTracking.SavePositionsOfItems(itemIDCache, isPlacing, gridPosition);///////////
        //
     }
@@ -136,6 +234,14 @@ public class PlacementSystem : MonoBehaviour
 
     private void Update()
     {
+        if(canGenerate)
+        {
+           // StartPlacement(2);
+            //StartRemoving();
+
+            CreateProceduralMap();
+            //canGenerate = false;
+        }
         if (buildingState == null) 
             return;
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
@@ -146,4 +252,6 @@ public class PlacementSystem : MonoBehaviour
             lastDetectedPosition = gridPosition;
         }
     }
+
+    
 }

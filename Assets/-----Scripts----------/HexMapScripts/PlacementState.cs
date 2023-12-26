@@ -75,7 +75,7 @@ public class PlacementState : IBuildingState
             index);
 
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
-        Debug.Log("placing structure number " + selectedObjectIndex + "at: " + gridPosition + " and index: " + index);// asol placement
+        //Debug.Log("placing structure number " + selectedObjectIndex + "at: " + gridPosition + " and index: " + index);// asol placement
     }
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)

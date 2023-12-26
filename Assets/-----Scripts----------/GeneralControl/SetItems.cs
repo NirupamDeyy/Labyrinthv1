@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
+
 
 public class SetItems : MonoBehaviour
 {
     public ItemTracking itemTracking;
-
+    public PlacementSystem placementSystem;
     [SerializeField] 
     private TMP_Text totalItem1, tI1, totalItem2, tI2;
    /* [SerializeField] 
@@ -56,7 +55,7 @@ public class SetItems : MonoBehaviour
         itemTracking.maxItemCounts[1] = totalHexWall;
 
         itemTracking.OnMaxNumberChange();
-
+        placementSystem.RemoveAllItems();
         OpenCloseItemSetterRect();
     }
 

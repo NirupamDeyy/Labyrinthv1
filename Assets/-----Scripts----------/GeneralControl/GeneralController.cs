@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
-using Unity.VisualScripting;
+
 public class GeneralController : MonoBehaviour
 {
     [System.Serializable]
@@ -40,6 +39,8 @@ public class GeneralController : MonoBehaviour
         public Button closeDurationRect;
         public Button SetDefaultTime;
         public Button setDuration;
+        public Button removeAllItems;
+        public Button generateProceduralMap;
     }
 
     public int durationValue;
@@ -61,6 +62,9 @@ public class GeneralController : MonoBehaviour
         buttons.SetDefaultTime.onClick.AddListener(() => SetDefaultTimeFunction());
         buttons.setDuration.onClick.AddListener(() => SetDurationFunction());
         buttons.quitGame.onClick.AddListener(() => QuitGame());
+        buttons.removeAllItems.onClick.AddListener(() => scriptsReferences.placementSystem.RemoveAllItems());
+        buttons.generateProceduralMap.onClick.AddListener(() => StartCoroutine(scriptsReferences.placementSystem.GenerateProceduralMap())) ;
+
         uiElements.durationSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
     }
 
