@@ -55,7 +55,7 @@ public class SetItems : MonoBehaviour
         itemTracking.maxItemCounts[1] = totalHexWall;
 
         itemTracking.OnMaxNumberChange();
-        placementSystem.RemoveAllItems();
+        placementSystem.RemoveAll();
         OpenCloseItemSetterRect();
     }
 

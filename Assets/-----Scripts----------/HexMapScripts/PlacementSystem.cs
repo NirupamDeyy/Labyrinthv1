@@ -76,13 +76,18 @@ public class PlacementSystem : MonoBehaviour
 
     public void RemoveAll()
     {
+        createProceduraly = true;
+        StartRemoving();
         for (int x = -11; x <= 11; x++)
         {
             for (int y = -5; y <= 7; y++)
             {
-
+                Debug.Log("xxxx");    
+                newPos = new Vector3Int(x, y, 0);
+                PlaceStructure();
             }
         }
+        createProceduraly = false;
     }
 
     public void StartRemoving()
@@ -100,16 +105,7 @@ public class PlacementSystem : MonoBehaviour
     public int xOrigin, yorigin;
     public bool removeAll;
 
-    public void RemoveAllItems()
-    {
-        Debug.Log("Removing all");
-        StartRemoving();
-        removeAll = true;
-        createProceduraly = true;
-        canGenerate = true;
-        Invoke("iswhatfalse", 1f);
-        
-    }
+    
 
     private void iswhatfalse()
     {
@@ -119,11 +115,12 @@ public class PlacementSystem : MonoBehaviour
     }
     public IEnumerator  GenerateProceduralMap()
     {
-        RemoveAllItems();
+        RemoveAll();
         yield return new WaitForSeconds(1);
-        StartPlacement(1);
+        StartPlacement(2);
         createProceduraly = true;
         canGenerate = true;
+        CreateProceduralMap();
         yield return new WaitForSeconds(1);
         iswhatfalse();
     }
@@ -145,17 +142,12 @@ public class PlacementSystem : MonoBehaviour
                     {
                         newPos = new Vector3Int(x, y, 0);
                         bool RandomBool = Random.value > 0.95;
-                        if (RandomBool && ! removeAll)
+                        if (RandomBool)
                         {
                             PlaceStructure();
                             i--;
                         }
 
-                        if (removeAll)
-                        {
-                            PlaceStructure();
-                            
-                        }
                     }
                 }
             }
@@ -177,8 +169,11 @@ public class PlacementSystem : MonoBehaviour
   
     private void PlaceStructure()
     {
-         
-        if(itemTracking.CanPlaceItems(itemIDCache) && isPlacing)
+        if (!createProceduraly && MouseOverUILayerObject.IsPointerOverUIObject())
+        {
+            return;
+        }
+        if (itemTracking.CanPlaceItems(itemIDCache) && isPlacing)
         {
             if(itemIDCache == 1)
             {
@@ -191,16 +186,7 @@ public class PlacementSystem : MonoBehaviour
             }
             return;
         }
-
-        if(MouseOverUILayerObject.IsPointerOverUIObject())
-        {
-           
-            return;
-        }
-        /*if (inputManager.IsPointerOverUI())
-        {
-            return;
-        }*/
+       
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition;
         if (!createProceduraly)
@@ -209,9 +195,10 @@ public class PlacementSystem : MonoBehaviour
         }
         else
         {
+            
             gridPosition = newPos;
         }
-        
+       // Debug.Log("placimstructure");
 
         buildingState.OnAction(gridPosition);
         //Debug.Log(gridPosition);
@@ -239,7 +226,7 @@ public class PlacementSystem : MonoBehaviour
            // StartPlacement(2);
             //StartRemoving();
 
-            CreateProceduralMap();
+            //CreateProceduralMap();
             //canGenerate = false;
         }
         if (buildingState == null) 

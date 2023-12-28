@@ -62,7 +62,7 @@ public class GeneralController : MonoBehaviour
         buttons.SetDefaultTime.onClick.AddListener(() => SetDefaultTimeFunction());
         buttons.setDuration.onClick.AddListener(() => SetDurationFunction());
         buttons.quitGame.onClick.AddListener(() => QuitGame());
-        buttons.removeAllItems.onClick.AddListener(() => scriptsReferences.placementSystem.RemoveAllItems());
+        buttons.removeAllItems.onClick.AddListener(() => scriptsReferences.placementSystem.RemoveAll());
         buttons.generateProceduralMap.onClick.AddListener(() => StartCoroutine(scriptsReferences.placementSystem.GenerateProceduralMap())) ;
 
         uiElements.durationSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
