@@ -104,33 +104,30 @@ public class PlacementSystem : MonoBehaviour
     Vector3Int newPos;
     public int xOrigin, yorigin;
     public bool removeAll;
-
-    
-
-    private void iswhatfalse()
-    {
-        canGenerate = false;
-        createProceduraly = false;
-        removeAll = false;
-    }
-    public IEnumerator  GenerateProceduralMap()
+    int numberofWallToSpawn;
+    int numberofCoinsToSpawn;
+ 
+    public IEnumerator GenerateProceduralMap()
     {
         RemoveAll();
-        yield return new WaitForSeconds(1);
-        StartPlacement(2);
         createProceduraly = true;
         canGenerate = true;
-        CreateProceduralMap();
+        //yield return new WaitForSeconds(1);
+        StartPlacement(2);
+        CreateProceduralMap(numberofWallToSpawn);
+       // yield return new WaitForSeconds(1);
+        StartPlacement(1);
+        CreateProceduralMap(numberofCoinsToSpawn);
         yield return new WaitForSeconds(1);
         iswhatfalse();
     }
-    private void CreateProceduralMap( )
+    private void CreateProceduralMap( int numberofItemstoSpawn)
     {
         //Assign new position
         int[,] pos = new int[14,18];
         
         newPos = new Vector3Int();
-        int i = 300;
+        int i = 10;
 
         for (int a = 0; a < 12; a++)
         {
@@ -138,14 +135,14 @@ public class PlacementSystem : MonoBehaviour
             {
                 for (int y = -5; y <= 7; y++)
                 {
-                    if (i > 0 ) 
+                    if (numberofItemstoSpawn >= 0 ) 
                     {
                         newPos = new Vector3Int(x, y, 0);
                         bool RandomBool = Random.value > 0.95;
                         if (RandomBool)
                         {
                             PlaceStructure();
-                            i--;
+                            numberofItemstoSpawn--;
                         }
 
                     }
@@ -156,7 +153,12 @@ public class PlacementSystem : MonoBehaviour
 
         
     }
-
+    private void iswhatfalse()
+    {
+        canGenerate = false;
+        createProceduraly = false;
+        removeAll = false;
+    }
     IEnumerator GenerateTile( Vector3Int pos)
     {
         yield return new WaitForSeconds(10);
@@ -166,7 +168,6 @@ public class PlacementSystem : MonoBehaviour
     }
     public bool createProceduraly;
 
-  
     private void PlaceStructure()
     {
         if (!createProceduraly && MouseOverUILayerObject.IsPointerOverUIObject())
@@ -182,7 +183,6 @@ public class PlacementSystem : MonoBehaviour
             else if(itemIDCache == 2)
             {
                 showInfoTextScript.ShowInfoText("No Tile Left", 2);
-
             }
             return;
         }
@@ -195,15 +195,13 @@ public class PlacementSystem : MonoBehaviour
         }
         else
         {
-            
             gridPosition = newPos;
         }
-       // Debug.Log("placimstructure");
+        // Debug.Log("placimstructure");
 
         buildingState.OnAction(gridPosition);
         //Debug.Log(gridPosition);
         itemTracking.SavePositionsOfItems(itemIDCache, isPlacing, gridPosition);///////////
-       //
     }
 
     public void StopPlacement()
@@ -221,14 +219,6 @@ public class PlacementSystem : MonoBehaviour
 
     private void Update()
     {
-        if(canGenerate)
-        {
-           // StartPlacement(2);
-            //StartRemoving();
-
-            //CreateProceduralMap();
-            //canGenerate = false;
-        }
         if (buildingState == null) 
             return;
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
