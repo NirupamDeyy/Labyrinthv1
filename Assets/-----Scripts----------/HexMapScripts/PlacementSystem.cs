@@ -104,20 +104,22 @@ public class PlacementSystem : MonoBehaviour
     Vector3Int newPos;
     public int xOrigin, yorigin;
     public bool removeAll;
-    int numberofWallToSpawn;
+    public int numberofWallToSpawn;
     int numberofCoinsToSpawn;
  
     public IEnumerator GenerateProceduralMap()
     {
+        numberofCoinsToSpawn = itemTracking.maxItemCounts[0];
+        numberofWallToSpawn = itemTracking.maxItemCounts[1];
         RemoveAll();
         createProceduraly = true;
         canGenerate = true;
         //yield return new WaitForSeconds(1);
         StartPlacement(2);
-        CreateProceduralMap(numberofWallToSpawn);
+        CreateProceduralMap(numberofWallToSpawn + 10);
        // yield return new WaitForSeconds(1);
         StartPlacement(1);
-        CreateProceduralMap(numberofCoinsToSpawn);
+        CreateProceduralMap(numberofCoinsToSpawn + 10);
         yield return new WaitForSeconds(1);
         iswhatfalse();
     }
@@ -127,7 +129,6 @@ public class PlacementSystem : MonoBehaviour
         int[,] pos = new int[14,18];
         
         newPos = new Vector3Int();
-        int i = 10;
 
         for (int a = 0; a < 12; a++)
         {
@@ -148,10 +149,7 @@ public class PlacementSystem : MonoBehaviour
                     }
                 }
             }
-        
         }
-
-        
     }
     private void iswhatfalse()
     {
@@ -197,8 +195,7 @@ public class PlacementSystem : MonoBehaviour
         {
             gridPosition = newPos;
         }
-        // Debug.Log("placimstructure");
-
+        //Debug.Log("placimstructure");
         buildingState.OnAction(gridPosition);
         //Debug.Log(gridPosition);
         itemTracking.SavePositionsOfItems(itemIDCache, isPlacing, gridPosition);///////////
@@ -229,6 +226,4 @@ public class PlacementSystem : MonoBehaviour
             lastDetectedPosition = gridPosition;
         }
     }
-
-    
 }

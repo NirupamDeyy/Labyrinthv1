@@ -81,7 +81,7 @@ public class PlacementState : IBuildingState
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
     {
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : cubeData;
-
+        Debug.Log(database.objectsData[selectedObjectIndex].Size);
         return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
     }
 

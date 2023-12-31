@@ -1,8 +1,6 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 
 public class SetItems : MonoBehaviour
 {
@@ -89,15 +87,6 @@ public class SetItems : MonoBehaviour
     {
         totalHexWall = (int)HexWallSlider.value;
         tI2.text = totalHexWall.ToString();
-        
-    }
-
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 }
