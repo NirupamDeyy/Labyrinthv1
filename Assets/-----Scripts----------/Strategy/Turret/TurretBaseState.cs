@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class TurretBaseState
-{ 
-    // Start is called before the first frame update
-    
+{
+   public abstract void EnterState(TurretStateManager state, Transform centreRayOrigin);
+   public abstract void UpdateState(TurretStateManager state);
+   public abstract void OnCollisionEnter(TurretStateManager state);
+
+   
+
+
 }
