@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class TurretSeekingAndShooting : TurretBaseState
 {
@@ -13,14 +14,16 @@ public class TurretSeekingAndShooting : TurretBaseState
     float currentDistance;
     GameObject player;
     bool changeState;
-
-    Transform startPoint;
+    Transform muzzle;
+    Transform muzzleFirePoint;
+    Transform projectilePrefab;
     
     public override void EnterState(TurretStateManager state, Transform centreRayOrigin)
     {
         state.PlayAnimayion(true, "IsWaking");
         state.StartCoroutine(DisableAnimator(state));
         player = GameObject.FindGameObjectWithTag("Player");
+        projectilePrefab = state.projectilePrefab;
         
         Debug.Log(player.name);
         centreRaycastOrigin = centreRayOrigin;
@@ -32,9 +35,12 @@ public class TurretSeekingAndShooting : TurretBaseState
         yield return new WaitForSeconds(2);//time to complete animation
         if (currentDistance < triggerDistance)
         {
+            
             state.animator.enabled = false;
             //shooting chalu
         }
+        muzzle = state.muzzleTransform;
+        muzzleFirePoint = muzzle.GetComponentInChildren<Transform>();   
     }
     public override void UpdateState(TurretStateManager state)
     {
@@ -72,10 +78,10 @@ public class TurretSeekingAndShooting : TurretBaseState
                 Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.CompareTag ("Player") )
                 {
+                    Shoot(direction);
                     Debug.Log("got player");
                     AimTurretTowardsVector(state, hit.point);
                 }
-                
             }
             DrawLine(Color.cyan, hit.point);
             
@@ -101,6 +107,34 @@ public class TurretSeekingAndShooting : TurretBaseState
         state.baseBody.forward = new Vector3(lookdirection.x, 0, lookdirection.z);
     }
 
+    float shotCountDown = 5f;
+    /// <summary>
+    /// Shooting Mechanism
+    /// </summary>
+    void Shoot(Vector3 direction)
+    {
+        shotCountDown -= Time.deltaTime;
+        if(shotCountDown <= 0)
+        {
+            Vector3 muzzlePos = muzzle.transform.position;
+            muzzlePos.y = muzzlePos.y - 0.14f;
+            ThrowProjectile(direction);
+            muzzle.DOLocalMoveZ(muzzlePos.y - .07f, .1f).OnComplete(() => 
+            {
+                muzzle.DOLocalMoveZ(muzzlePos.y + .07f, 1.5f);
+            });
+            shotCountDown = 4f;
+        }
+    }
+    Rigidbody projectileRb;
+    void ThrowProjectile(Vector3 direction)
+    {
+        Quaternion q = Quaternion.LookRotation(direction);  
+        Transform projectile = Transform.Instantiate(projectilePrefab, muzzleFirePoint.transform.position,q);
+        projectileRb = projectile.GetComponent<Rigidbody>();    
+        projectileRb.AddForce(direction * 1, ForceMode.Impulse);
+
+    }
 
     float time;
     private void StartTimer(TurretStateManager state)

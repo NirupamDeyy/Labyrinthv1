@@ -14,6 +14,8 @@ public class TurretStateManager : MonoBehaviour
 
     public Transform upperBody;
     public Transform baseBody;
+    public Transform muzzleTransform;
+    public Transform projectilePrefab;
 
     public Animator animator;
     void Start()
