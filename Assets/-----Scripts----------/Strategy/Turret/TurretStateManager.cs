@@ -13,6 +13,7 @@ public class TurretStateManager : MonoBehaviour
     private Transform centreRaycastOrigin;
 
     public Transform upperBody;
+    public Transform baseBody;
 
     public Animator animator;
     void Start()

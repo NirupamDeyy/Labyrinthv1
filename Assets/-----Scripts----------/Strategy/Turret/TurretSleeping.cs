@@ -18,7 +18,7 @@ public class TurretSleeping : TurretBaseState
         state.animator = state.GetComponent<Animator>();
         state.animator.enabled = true;
         state.PlayAnimayion(false, "IsWaking");
-        player = GameObject.FindGameObjectWithTag("player");
+        player = GameObject.FindGameObjectWithTag("Player");
         centreRaycastOrigin = centreRayOrigin;
         changeState = true;
     }
@@ -43,11 +43,6 @@ public class TurretSleeping : TurretBaseState
             Debug.Log("outside");
             DrawLine(Color.yellow);
         }
-        
-
-
-        
-
 
        /* if (istriggered)
         {

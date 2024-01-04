@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using System.Threading;
-
 
 public class TurretSeekingAndShooting : TurretBaseState
 {
@@ -15,20 +13,23 @@ public class TurretSeekingAndShooting : TurretBaseState
     float currentDistance;
 
     GameObject player;
+    GameObject playerParent;
 
     bool changeState;
     public override void EnterState(TurretStateManager state, Transform centreRayOrigin)
     {
         state.PlayAnimayion(true, "IsWaking");
         state.StartCoroutine(DisableAnimator(state));
-        player = GameObject.FindGameObjectWithTag("player");
+        player = GameObject.FindGameObjectWithTag("Player");
+        
+        Debug.Log(player.name);
         centreRaycastOrigin = centreRayOrigin;
         changeState = true;
     }
 
     IEnumerator DisableAnimator(TurretStateManager state)
     {
-        yield return new WaitForSeconds(3);//time to complete animation
+        yield return new WaitForSeconds(2);//time to complete animation
         if (currentDistance < triggerDistance)
         {
             state.animator.enabled = false;
@@ -62,25 +63,30 @@ public class TurretSeekingAndShooting : TurretBaseState
 
         if (istriggered)
         {
+            Vector3 direction = (player.transform.position - centreRaycastOrigin.position).normalized;  
             RaycastHit hit;
-            Ray ray = new Ray(centreRaycastOrigin.position, player.transform.position);
-
+            Ray ray = new Ray(centreRaycastOrigin.position, direction);
+            
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.transform.name);
-                if(hit.collider.CompareTag ("player"))
+                Debug.Log(hit.transform.gameObject.name);
+                if (hit.transform.CompareTag ("Player") )
                 {
                     Debug.Log("got player");
-                    AimTurretTowardsGivenVector(state, player.transform);
+                    AimTurretTowardsVector(state, hit.point);
                 }
+                
             }
-            DrawLine(Color.cyan);
+            DrawLine(Color.cyan, hit.point);
+            
         }
     }
     
-    private void AimTurretTowardsGivenVector(TurretStateManager state ,Transform player)
+    private void AimTurretTowardsVector(TurretStateManager state ,Vector3 point)
     {
-        state.upperBody.transform.LookAt(player);
+        state.upperBody.transform.LookAt(point);
+        Vector3 lookdirection = state.upperBody.transform.forward;
+        state.baseBody.forward = new Vector3(lookdirection.x, 0, lookdirection.z);
     }
 
     float time;
@@ -94,9 +100,9 @@ public class TurretSeekingAndShooting : TurretBaseState
         }
         
     }
-    private void DrawLine(Color color)
+    private void DrawLine(Color color, Vector3 point)
     {
-        Debug.DrawLine(centreRaycastOrigin.position, player.transform.position, color);
+        Debug.DrawLine(centreRaycastOrigin.position, point, color);
     }
     public override void OnCollisionEnter(TurretStateManager state) { }
 }
