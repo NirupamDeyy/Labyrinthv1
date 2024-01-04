@@ -11,11 +11,11 @@ public class TurretSeekingAndShooting : TurretBaseState
     [SerializeField]
     private bool istriggered;
     float currentDistance;
-
     GameObject player;
-    GameObject playerParent;
-
     bool changeState;
+
+    Transform startPoint;
+    
     public override void EnterState(TurretStateManager state, Transform centreRayOrigin)
     {
         state.PlayAnimayion(true, "IsWaking");
@@ -81,24 +81,35 @@ public class TurretSeekingAndShooting : TurretBaseState
             
         }
     }
-    
     private void AimTurretTowardsVector(TurretStateManager state ,Vector3 point)
-    {
+    {/*
         state.upperBody.transform.LookAt(point);
+        Vector3 lookdirection = state.upperBody.transform.forward;
+        state.baseBody.forward = new Vector3(lookdirection.x, 0, lookdirection.z);*/
+
+        // Get the direction from the turret's current position to the point
+        Vector3 direction = (point - state.upperBody.position).normalized;
+
+        // Create a rotation based on the desired direction
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        // Interpolate between the current rotation and the target rotation
+        state.upperBody.rotation = Quaternion.Slerp(state.upperBody.rotation, targetRotation, 10 * Time.deltaTime);
+
+
         Vector3 lookdirection = state.upperBody.transform.forward;
         state.baseBody.forward = new Vector3(lookdirection.x, 0, lookdirection.z);
     }
 
+
     float time;
     private void StartTimer(TurretStateManager state)
     {
-        
         if (currentDistance > triggerDistance)
         {
             changeState = true;
             state.SwitchState(state.sleepingState);
         }
-        
     }
     private void DrawLine(Color color, Vector3 point)
     {

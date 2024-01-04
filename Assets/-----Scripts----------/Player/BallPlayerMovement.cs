@@ -86,7 +86,7 @@ public class BallPlayerMovement : MonoBehaviour
             Vector3 movement = Camera.main.transform.rotation * input;
             
             movement.y = 0; // Ensure movement is only in the XY plane
-            movement.Normalize(); // Normalize for consistent speed
+            movement.Normalize(); // Normalize for consistent lerpSpeed
 
             // Move the object
             transform.position += speed * Time.deltaTime * movement;
