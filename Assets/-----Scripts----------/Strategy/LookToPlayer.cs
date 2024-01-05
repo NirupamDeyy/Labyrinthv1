@@ -8,7 +8,9 @@ public class LookToPlayer : MonoBehaviour
     void Start()
     {
         turretStateManager = GetComponent<TurretStateManager>();
-        player = GameObject.FindGameObjectWithTag("player");
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+            Debug.Log("player not found");
     }
 
     // Update is called once per frame
@@ -16,6 +18,7 @@ public class LookToPlayer : MonoBehaviour
     {
         if (turretStateManager.isActiveAndEnabled)
         {
+            Debug.Log("yo");
             image.transform.LookAt(player.transform);
         }
         

@@ -10,6 +10,7 @@ public class RemovingState : IBuildingState
     PreviewSystem previewSystem;
     GridData floorData;
     GridData cubeData;
+    GridData turretData;
     ObjectPlacer objectPlacer;
     SoundFeedback soundFeedback;
 
@@ -17,6 +18,7 @@ public class RemovingState : IBuildingState
                          PreviewSystem previewSystem,
                          GridData floorData,
                          GridData cubeData,
+                         GridData turretData,
                          ObjectPlacer objectPlacer,
                          SoundFeedback soundFeedback)
     {
@@ -24,6 +26,7 @@ public class RemovingState : IBuildingState
         this.previewSystem = previewSystem;
         this.floorData = floorData;
         this.cubeData = cubeData;
+        this.turretData = turretData;
         this.objectPlacer = objectPlacer;
         this.soundFeedback = soundFeedback;
 
@@ -47,8 +50,12 @@ public class RemovingState : IBuildingState
         {
             selectedData = floorData;
         }
+        else if (turretData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
+        {
+            selectedData = turretData;
+        }
 
-        if(selectedData == null)
+        if (selectedData == null)
         {
             soundFeedback.PlaySound(SoundType.Remove);
         }
@@ -70,7 +77,9 @@ public class RemovingState : IBuildingState
 
     private bool checkIfSelectionIsValid(Vector3Int gridPosition)
     {
-        return ! (cubeData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
+        return ! (cubeData.CanPlaceObjectAt(gridPosition, Vector2Int.one) 
+            && floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one) 
+            && turretData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
     }
 
     public void UpdateState(Vector3Int gridPosition)

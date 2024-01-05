@@ -19,6 +19,8 @@ public class ItemTracking : MonoBehaviour
     public  List<Vector3Int> wallPositions = new();
     [SerializeField]
     public List<Vector3Int> FloorPositions = new();
+    [SerializeField]
+    public List<Vector3Int> TurretPositions = new();
 
     private void Start()
     {
@@ -28,8 +30,11 @@ public class ItemTracking : MonoBehaviour
     {
         itemsLeft[0] = maxItemCounts[0];
         itemsLeft[1] = maxItemCounts[1];
+        itemsLeft[2] = maxItemCounts[2];
         itemTexts[0].text = maxItemCounts[0].ToString();
-        itemTexts[1].text = maxItemCounts[1].ToString();    
+        itemTexts[1].text = maxItemCounts[1].ToString();
+        itemTexts[2].text = maxItemCounts[2].ToString();
+
     }
 
     public bool AllItemsPlaced()
@@ -54,7 +59,7 @@ public class ItemTracking : MonoBehaviour
         
         if (isPlacin)
         {
-            if (FloorPositions.Contains(pos) || wallPositions.Contains(pos))
+            if (FloorPositions.Contains(pos) || wallPositions.Contains(pos) || TurretPositions.Contains(pos))
             {
                 showInfoText.ShowInfoText("Cannot Place Here.", 2);
             }
@@ -72,7 +77,11 @@ public class ItemTracking : MonoBehaviour
                         //save position of ID 1
                         wallPositions.Add(pos);
                         showInfoText.ShowInfoText("Wall Placed at " + pos + " .", 0);
-
+                        break;
+                    case 3:
+                        //save position of ID 1
+                        TurretPositions.Add(pos);
+                        showInfoText.ShowInfoText("Wall Placed at " + pos + " .", 0);
                         break;
                     default:
 
@@ -94,8 +103,14 @@ public class ItemTracking : MonoBehaviour
                 showInfoText.ShowInfoText("Wall Removed From " + pos + " .", 1);
 
             }
+            else if (TurretPositions.Contains(pos))
+            {
+                showInfoText.ShowInfoText("Turret Removed From " + pos + " .", 1);
+
+            }
             FloorPositions.Remove(pos);
             wallPositions.Remove(pos);
+            TurretPositions.Remove(pos);
         }
         UpdateItemTexts();
     }
@@ -104,8 +119,12 @@ public class ItemTracking : MonoBehaviour
     {
         itemsLeft[0] = (maxItemCounts[0] - FloorPositions.Count);
         itemsLeft[1] = (maxItemCounts[1] - wallPositions.Count);
+        itemsLeft[2] = (maxItemCounts[2] - TurretPositions.Count);
         itemTexts[0].text = (maxItemCounts[0] - FloorPositions.Count).ToString();
         itemTexts[1].text = (maxItemCounts[1] - wallPositions.Count).ToString();
+        itemTexts[2].text = (maxItemCounts[2] - TurretPositions.Count).ToString();
+
+
 
     }
 
@@ -117,6 +136,7 @@ public class ItemTracking : MonoBehaviour
         itemsCount.Clear();
         itemsCount.Insert(0, FloorPositions.Count);
         itemsCount.Insert(1, wallPositions.Count);
+        itemsCount.Insert(2, TurretPositions.Count);
 
         /*itemsCount[0] = FloorPositions.Count;
         itemsCount[1] = wallPositions.Count;*/

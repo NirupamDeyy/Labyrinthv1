@@ -16,10 +16,15 @@ MonoBehaviour:
   - <Name>k__BackingField: Coin
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 3329867964364268716, guid: fba59abc901f5824685f8e7b3bd0af47,
+    <Prefab>k__BackingField: {fileID: 4493321473605393992, guid: 8a540f1d99dc2aa4cb2d9609bc6a18e3,
       type: 3}
   - <Name>k__BackingField: Wall
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 4493321473605393992, guid: 8d75781c82c95dd4f8c0bf6e2bcc19e8,
+      type: 3}
+  - <Name>k__BackingField: Turret
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 5708769930581598982, guid: fba59abc901f5824685f8e7b3bd0af47,
       type: 3}

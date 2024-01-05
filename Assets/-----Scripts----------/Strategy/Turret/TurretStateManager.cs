@@ -11,7 +11,8 @@ public class TurretStateManager : MonoBehaviour
 
     [SerializeField]
     private Transform centreRaycastOrigin;
-
+    public LookToPlayer lookTowardsPlayer;
+    public TriggerVisualizerScript triggerVisualizerScript;
     public Transform upperBody;
     public Transform baseBody;
     public Transform muzzleTransform;
@@ -25,12 +26,18 @@ public class TurretStateManager : MonoBehaviour
         // "this" is a reference to the context (this Exact Monobehavior script)
         currentState.EnterState(this, centreRaycastOrigin);
         animator = GetComponent<Animator>();
+        lookTowardsPlayer = GetComponent<LookToPlayer>();
+        lookTowardsPlayer.enabled = true;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*if (currentState == seekingAndShooting)
+        {
+            Debug.Log("triggered");
+        }*/
         currentState.UpdateState(this);
     }
 
@@ -43,6 +50,14 @@ public class TurretStateManager : MonoBehaviour
     {
         currentState = state;
         state.EnterState(this, centreRaycastOrigin);
+        if(currentState == seekingAndShooting)
+        {
+            triggerVisualizerScript.Triggered(true);
+        }
+        else
+        {
+            triggerVisualizerScript.Triggered(false);
+        }
     }
 
     public void PlayAnimayion(bool isTrue, string animation)

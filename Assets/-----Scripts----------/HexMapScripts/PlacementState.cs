@@ -10,6 +10,7 @@ public class PlacementState : IBuildingState
     ObjectsDatabaseSO database;
     GridData floorData;
     GridData cubeData;
+    GridData turretData;
     ObjectPlacer objectPlacer;
     SoundFeedback soundFeedback;
 
@@ -19,6 +20,7 @@ public class PlacementState : IBuildingState
                           ObjectsDatabaseSO database,
                           GridData floorData,
                           GridData cubeData,
+                          GridData turretData,
                           ObjectPlacer objectPlacer,
                           SoundFeedback soundFeedback)
     {
@@ -28,6 +30,7 @@ public class PlacementState : IBuildingState
         this.database = database;
         this.floorData = floorData;
         this.cubeData = cubeData;
+        this.turretData = turretData;
         this.objectPlacer = objectPlacer;
         this.soundFeedback = soundFeedback;
 
@@ -80,6 +83,7 @@ public class PlacementState : IBuildingState
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
     {
+        
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : cubeData;
         Debug.Log(database.objectsData[selectedObjectIndex].Size);
         return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);

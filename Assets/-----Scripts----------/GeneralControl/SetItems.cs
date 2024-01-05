@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class SetItems : MonoBehaviour
 {
     public ItemTracking itemTracking;
     public PlacementSystem placementSystem;
     [SerializeField] 
-    private TMP_Text totalItem1, tI1, totalItem2, tI2;
+    private TMP_Text totalItem1, tI1, totalItem2, tI2, totalItem3, tI3;
    /* [SerializeField] 
     private TMP_Text currentItem1, currentItem2;*/ // aleady taken care by ItemTracking
 
@@ -18,7 +19,7 @@ public class SetItems : MonoBehaviour
     private Button openItemSetterRect, setDefaultNumberOfItems, setNumberOfItems;
 
     [SerializeField]
-    private Slider coinSlider, HexWallSlider;
+    private Slider coinSlider, HexWallSlider, turretSlider;
 
     bool itemSetterRectisOpenned = false;
 
@@ -31,17 +32,20 @@ public class SetItems : MonoBehaviour
         openItemSetterRect.onClick.AddListener(() => OpenCloseItemSetterRect());
         coinSlider.onValueChanged.AddListener(delegate { CoinNumberValueChange(); });
         HexWallSlider.onValueChanged.AddListener(delegate { HexWallNumberValueChange(); });
+        turretSlider.onValueChanged.AddListener(delegate { TurretNumberValueChange(); });
         SetDefaultNumberOfItems();
         SetTotalNumberOfItems();
     }
 
-    int totalCoin, totalHexWall;
+    int totalCoin, totalHexWall, totalTurret;
     private void SetDefaultNumberOfItems()
     {
         coinSlider.value = 5;
         HexWallSlider.value = 10;
+        turretSlider.value = 2;
         CoinNumberValueChange();
         HexWallNumberValueChange();
+        TurretNumberValueChange();
     }
 
     private void SetTotalNumberOfItems()
@@ -51,6 +55,9 @@ public class SetItems : MonoBehaviour
 
         totalItem2.text = totalHexWall.ToString();
         itemTracking.maxItemCounts[1] = totalHexWall;
+
+        totalItem3.text = totalTurret.ToString();
+        itemTracking.maxItemCounts[2] = totalTurret;
 
         itemTracking.OnMaxNumberChange();
         placementSystem.RemoveAll();
@@ -76,17 +83,20 @@ public class SetItems : MonoBehaviour
             text.text = "Close";
         }
     }
-
     private void CoinNumberValueChange()
     {
         totalCoin = (int)coinSlider.value;
         tI1.text = totalCoin.ToString();
-        
     }
     private void HexWallNumberValueChange()
     {
         totalHexWall = (int)HexWallSlider.value;
         tI2.text = totalHexWall.ToString();
         
+    }
+    private void TurretNumberValueChange()
+    {
+        totalTurret = (int)turretSlider.value;
+        tI3.text = totalTurret.ToString();
     }
 }

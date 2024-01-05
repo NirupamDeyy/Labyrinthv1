@@ -32,7 +32,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private SoundFeedback soundFeedback;
 
-    private GridData floorData, cubeData;
+    private GridData floorData, cubeData , turretData;
 
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
@@ -52,6 +52,7 @@ public class PlacementSystem : MonoBehaviour
         StopPlacement();
         floorData = new GridData();
         cubeData = new GridData();
+        turretData = new GridData();    
     }
 
     public void StartPlacement(int ID)
@@ -68,6 +69,7 @@ public class PlacementSystem : MonoBehaviour
                                            database,
                                            floorData,
                                            cubeData,
+                                           turretData,
                                            objectPlacer,
                                            soundFeedback);
         inputManager.OnClicked += PlaceStructure;
@@ -96,7 +98,7 @@ public class PlacementSystem : MonoBehaviour
         StopPlacement();
         isPlacing = false;
         gridVisualization.SetActive(true);
-        buildingState = new RemovingState(grid, previewSystem, floorData, cubeData, objectPlacer, soundFeedback);
+        buildingState = new RemovingState(grid, previewSystem, floorData, cubeData,turretData, objectPlacer, soundFeedback);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }

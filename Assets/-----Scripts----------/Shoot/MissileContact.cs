@@ -5,10 +5,18 @@ public class MissileContact : MonoBehaviour
 {
     [SerializeField] private Transform explosionPrefab;
     [SerializeField] private float forceAmount = 20;
+    [SerializeField]
+    private Transform dangerCollider;
     private GameObject missileTargetPoint;
     CrosshairTarget missileTargetScript;
+
+    private void Start()
+    {
+        dangerCollider.gameObject.SetActive(false);
+    }
     private void OnCollisionEnter(Collision collision)
     {
+        dangerCollider.gameObject.SetActive(true);
         ContactPoint contact = collision.contacts[0];
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
         Vector3 position = contact.point;
@@ -27,13 +35,16 @@ public class MissileContact : MonoBehaviour
         {
             Instantiate(explosionPrefab, position, rotation);
         }
-        
-        Destroy(gameObject);
-        
+
+        //dangerCollider.DOPunchScale(Vector3.one, 0.5f, 1, 1).OnComplete(() => DestoryMissile());
+        //DOTween.Clear(explosionPrefab);
+        //Destroy(gameObject);
+        DestoryMissile();
     }
 
-    private void OnDestroy()
+    void DestoryMissile()
     {
-        DOTween.Clear();
+        Destroy(gameObject);
     }
+
 }

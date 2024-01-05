@@ -117,11 +117,15 @@ public class TurretSeekingAndShooting : TurretBaseState
         if(shotCountDown <= 0)
         {
             Vector3 muzzlePos = muzzle.transform.position;
-            muzzlePos.y = muzzlePos.y - 0.14f;
+            Debug.Log(muzzlePos);
+            //muzzlePos.y = muzzlePos.y - 0.14f;
             ThrowProjectile(direction);
-            muzzle.DOLocalMoveZ(muzzlePos.y - .07f, .1f).OnComplete(() => 
+
+            // muzzle.DOPunchScale(Vector3.one * 0.02f, .5f, 1);
+            //muzzle.DOPunchPosition(new Vector3(0,0, -0.1f), 1f, 1, 0f);
+            muzzle.DOLocalMoveZ(.16f - .07f, .1f).OnComplete(() =>
             {
-                muzzle.DOLocalMoveZ(muzzlePos.y + .07f, 1.5f);
+                muzzle.DOLocalMoveZ(.16f + .07f, 1.5f);
             });
             shotCountDown = 4f;
         }
