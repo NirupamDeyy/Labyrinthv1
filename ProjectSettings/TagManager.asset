@@ -10,6 +10,7 @@ TagManager:
   - coin
   - player
   - playerCatcherCollider
+  - Turret
   layers:
   - Default
   - TransparentFX

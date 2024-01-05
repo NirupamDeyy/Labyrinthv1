@@ -13,6 +13,7 @@ public class GeneralController : MonoBehaviour
         public PlacementSystem placementSystem;
         public ShowInfoTextScript showInfoTextScript;
         public ImageFaderScript imageFaderScript;
+        public ItemActivator itemActivator;
     }
 
     [System.Serializable]
@@ -133,6 +134,7 @@ public class GeneralController : MonoBehaviour
     {
         environments.actionEnvironment.gameObject.SetActive(true);
         environments.strategyEnvironment.gameObject.SetActive(false);
+        scriptsReferences.itemActivator.ActivateItems();
         scriptsReferences.timer.StartTimer();
     }
 

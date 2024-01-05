@@ -1,7 +1,5 @@
-
 using DG.Tweening;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPlacer : MonoBehaviour
@@ -58,13 +56,12 @@ public class ObjectPlacer : MonoBehaviour
 
     internal void RemoveObjectAt(int gameObjectIndex)
     {
-        if (placedGameObject.Count <= gameObjectIndex || placedGameObject[gameObjectIndex] == null)
-            return;
+        if (placedGameObject.Count <= gameObjectIndex || placedGameObject[gameObjectIndex] == null) return;
         
-            DOTween.Clear(placedGameObject[gameObjectIndex]);
-
-        
+        DOTween.Clear(placedGameObject[gameObjectIndex]);
+               
         Destroy(placedGameObject[gameObjectIndex]);
+
         placedGameObject[gameObjectIndex] = null;
     }
 }
