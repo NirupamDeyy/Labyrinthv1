@@ -78,7 +78,7 @@ public class TurretSeekingAndShooting : TurretBaseState
                 //Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.CompareTag ("Player") )
                 {
-                    Shoot(direction);
+                    Shoot(direction + new Vector3(0,0.1f,0));
                    // Debug.Log("got player");
                     AimTurretTowardsVector(state, hit.point);
                 }

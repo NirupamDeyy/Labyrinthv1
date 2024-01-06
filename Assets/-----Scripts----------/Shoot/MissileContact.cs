@@ -1,28 +1,33 @@
 using UnityEngine;
 using DG.Tweening;
+using Unity.Burst.CompilerServices;
 
 public class MissileContact : MonoBehaviour
 {
     [SerializeField] private Transform explosionPrefab;
     [SerializeField] private float forceAmount = 20;
+    /*[SerializeField]
+    private Transform //dangerCollider;*/
     [SerializeField]
-    private Transform dangerCollider;
+    private Transform rayEmitter;
     private GameObject missileTargetPoint;
     CrosshairTarget missileTargetScript;
     PlayerHealth playerHealth;
+    private bool istriggered = false;
+    GameObject player;
+    [SerializeField] float impactDistance = 2f;
+    public LayerMask damagableLayer;
     private void Start()
     {
-       // dangerCollider.gameObject.SetActive(false);
+        // dangerCollider.gameObject.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     private void OnCollisionEnter(Collision collision)
     {
-        dangerCollider.gameObject.SetActive(true);
+        istriggered = true;
+        //dangerCollider.gameObject.SetActive(true); 
         Debug.Log(collision.transform.name);
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-            playerHealth.AddDeleteBlock(false);
-        }
+     
         
         ContactPoint contact = collision.contacts[0];
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
@@ -42,11 +47,44 @@ public class MissileContact : MonoBehaviour
             Instantiate(explosionPrefab, position, rotation);
         }
 
-        //dangerCollider.DOPunchScale(Vector3.one, 0.5f, 1, 1).OnComplete(() => DestoryMissile());
-        //DOTween.Clear(explosionPrefab);
-        //Destroy(gameObject);
-        Invoke("DestoryMissile", 1);
+         Invoke("DestoryMissile", 1);
+    }
+    private void Update()
+    {
+        if (istriggered)
+        {
+            Vector3 direction = (player.transform.position - rayEmitter.position).normalized;
+            RaycastHit hit;
+            Ray ray = new Ray(rayEmitter.position, direction);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                //Debug.Log(hit.transform.gameObject.name);
+                if (hit.transform.CompareTag("Player"))
+                {
+                    playerHealth = hit.transform.GetComponent<PlayerHealth>();
+                    if(playerHealth != null)
+                    {
+                        //DrawLine(Color.cyan, hit.point);
+                        playerHealth.AddDeleteBlock(false);
+                    }
+                    else
+                    {
+                        Debug.Log("playerhealthNotfound");
+                    }
+                    Debug.Log("got player");
+                }
+            }
+            
+            istriggered = false;
         }
+       
+    }
+    private void DrawLine(Color color, Vector3 point)
+    {
+        Debug.DrawLine(rayEmitter.position, point, color);
+    }
+
 
     void DestoryMissile()
     {
@@ -54,3 +92,4 @@ public class MissileContact : MonoBehaviour
     }
 
 }
+

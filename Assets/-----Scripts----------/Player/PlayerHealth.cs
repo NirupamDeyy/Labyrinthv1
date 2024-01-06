@@ -12,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
     [Range(0, 10)]
     public int playerHealth = 0;
     public int playerHealthMax = 10;
+    public Color warningHealthColor = Color.yellow;
+    public Color lastHealthColor = Color.red;
     void Start()
     {
         foreach(Transform t in HealthBarParent)
@@ -30,8 +32,9 @@ public class PlayerHealth : MonoBehaviour
     
     public void AddDeleteBlock(bool add)
     {
-        
-        if(add == true)
+       
+
+        if (add == true)
         {
             Debug.Log("Increasing health");
             healthBlocks[playerHealth].gameObject.SetActive(true);
@@ -42,10 +45,19 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Got damage");
             playerHealth--;
             healthBlocks[playerHealth].gameObject.SetActive(false);
-            
-
+            /*if (playerHealth == 2)
+            {
+                healthBlocks[playerHealth].color = warningHealthColor;
+                healthBlocks[playerHealth - 1].color = warningHealthColor;
+            }
+            else if (playerHealth == 1)
+            {
+                healthBlocks[playerHealth].color = lastHealthColor;
+            }*/
         }
-        Debug.Log(playerHealth);
+        
+
+        //Debug.Log(playerHealth);
     }
     private void OnCollisionEnter(Collision collision)
     {
