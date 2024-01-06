@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
 public class ItemTracking : MonoBehaviour
 {
     [SerializeField]
@@ -34,7 +33,6 @@ public class ItemTracking : MonoBehaviour
         itemTexts[0].text = maxItemCounts[0].ToString();
         itemTexts[1].text = maxItemCounts[1].ToString();
         itemTexts[2].text = maxItemCounts[2].ToString();
-
     }
 
     public bool AllItemsPlaced()
@@ -123,9 +121,6 @@ public class ItemTracking : MonoBehaviour
         itemTexts[0].text = (maxItemCounts[0] - FloorPositions.Count).ToString();
         itemTexts[1].text = (maxItemCounts[1] - wallPositions.Count).ToString();
         itemTexts[2].text = (maxItemCounts[2] - TurretPositions.Count).ToString();
-
-
-
     }
 
     bool canPlace;

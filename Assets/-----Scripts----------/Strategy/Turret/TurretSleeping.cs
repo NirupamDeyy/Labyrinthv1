@@ -29,7 +29,7 @@ public class TurretSleeping : TurretBaseState
        // Debug.Log($"{currentDistance}");    
         if (currentDistance < triggerDistance)// if less than threshold
         {
-            Debug.Log("inside");
+            //Debug.Log("inside");
             DrawLine(Color.red);
             if (changeState)
             {
@@ -40,7 +40,7 @@ public class TurretSleeping : TurretBaseState
         else// if more than threshold 
 
         {
-            Debug.Log("outside");
+            //Debug.Log("outside");
             DrawLine(Color.yellow);
         }
 

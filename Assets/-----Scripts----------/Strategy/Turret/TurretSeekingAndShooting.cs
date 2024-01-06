@@ -25,7 +25,7 @@ public class TurretSeekingAndShooting : TurretBaseState
         player = GameObject.FindGameObjectWithTag("Player");
         projectilePrefab = state.projectilePrefab;
         
-        Debug.Log(player.name);
+        //Debug.Log(player.name);
         centreRaycastOrigin = centreRayOrigin;
         changeState = true;
     }
@@ -75,11 +75,11 @@ public class TurretSeekingAndShooting : TurretBaseState
             
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.gameObject.name);
+                //Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.CompareTag ("Player") )
                 {
                     Shoot(direction);
-                    Debug.Log("got player");
+                   // Debug.Log("got player");
                     AimTurretTowardsVector(state, hit.point);
                 }
             }
@@ -117,7 +117,7 @@ public class TurretSeekingAndShooting : TurretBaseState
         if(shotCountDown <= 0)
         {
             Vector3 muzzlePos = muzzle.transform.position;
-            Debug.Log(muzzlePos);
+            //Debug.Log(muzzlePos);
             //muzzlePos.y = muzzlePos.y - 0.14f;
             ThrowProjectile(direction);
 

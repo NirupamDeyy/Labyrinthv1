@@ -18,7 +18,7 @@ public class LookToPlayer : MonoBehaviour
     {
         if (turretStateManager.isActiveAndEnabled)
         {
-            Debug.Log("yo");
+           
             image.transform.LookAt(player.transform);
         }
         

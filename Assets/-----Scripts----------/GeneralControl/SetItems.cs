@@ -47,7 +47,6 @@ public class SetItems : MonoBehaviour
         HexWallNumberValueChange();
         TurretNumberValueChange();
     }
-
     private void SetTotalNumberOfItems()
     {
         totalItem1.text = totalCoin.ToString();
@@ -63,7 +62,6 @@ public class SetItems : MonoBehaviour
         placementSystem.RemoveAll();
         OpenCloseItemSetterRect();
     }
-
     private void OpenCloseItemSetterRect()
     {
         Transform textTransform = openItemSetterRect.transform.GetChild(0);
