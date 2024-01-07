@@ -47,7 +47,7 @@ public class MissileContact : MonoBehaviour
             Instantiate(explosionPrefab, position, rotation);
         }
 
-         Invoke("DestoryMissile", 1);
+         Invoke("DestoryMissile", 0.1f);
     }
     private void Update()
     {

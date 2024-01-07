@@ -76,7 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0448a2e1ba5583e4993cdc9868c72238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 2312591318274358133, guid: ef960a2c350b8b044aa5b26596ac2542,
+    type: 3}
   forceAmount: 0
   rayEmitter: {fileID: 999110319675543239}
   impactDistance: 0.2

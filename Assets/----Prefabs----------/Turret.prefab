@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 5542771150367843726}
   m_Layer: 0
   m_Name: Cylinder (1)
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1451,7 +1451,7 @@ GameObject:
   - component: {fileID: 4725436926115219819}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2274,6 +2274,8 @@ GameObject:
   - component: {fileID: 4362691158257735642}
   - component: {fileID: 7133267362078098227}
   - component: {fileID: 2540794663275133629}
+  - component: {fileID: 6437509742392713424}
+  - component: {fileID: 6079848288360428192}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Turret
@@ -2374,6 +2376,32 @@ MonoBehaviour:
   triggers: []
   activatedColor: {r: 0.72327036, g: 0.4960505, b: 0, a: 1}
   unActivatedColor: {r: 0.45490196, g: 0.57254905, b: 0, a: 1}
+--- !u!114 &6437509742392713424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708769930581598982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616878e45828855408397aaa1e816938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6079848288360428192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708769930581598982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4446d180eb134bb1c85ff6bb00b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretParts: []
+  healthBar: {fileID: 1742520328152510235}
 --- !u!1 &5963293899927504538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3311,7 +3339,7 @@ GameObject:
   - component: {fileID: 7287218620155097013}
   m_Layer: 0
   m_Name: Muzzle
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3501,7 +3529,7 @@ GameObject:
   - component: {fileID: 7605909485037501784}
   m_Layer: 0
   m_Name: TurretRotatorPart
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3606,7 +3634,7 @@ GameObject:
   - component: {fileID: 386631409574572280}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4259,7 +4287,7 @@ GameObject:
   - component: {fileID: 3364583947974006953}
   m_Layer: 0
   m_Name: Cylinder (3)
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4830,7 +4858,7 @@ GameObject:
   - component: {fileID: 3658479319648850407}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

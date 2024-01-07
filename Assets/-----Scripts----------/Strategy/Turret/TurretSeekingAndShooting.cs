@@ -17,7 +17,8 @@ public class TurretSeekingAndShooting : TurretBaseState
     Transform muzzle;
     Transform muzzleFirePoint;
     Transform projectilePrefab;
-    
+    float turretMovementspeed = 10;
+    float missilemovementSpeed = 3;
     public override void EnterState(TurretStateManager state, Transform centreRayOrigin)
     {
         state.PlayAnimayion(true, "IsWaking");
@@ -100,7 +101,7 @@ public class TurretSeekingAndShooting : TurretBaseState
         Quaternion targetRotation = Quaternion.LookRotation(direction);
 
         // Interpolate between the current rotation and the target rotation
-        state.upperBody.rotation = Quaternion.Slerp(state.upperBody.rotation, targetRotation, 10 * Time.deltaTime);
+        state.upperBody.rotation = Quaternion.Slerp(state.upperBody.rotation, targetRotation, turretMovementspeed * Time.deltaTime);
 
 
         Vector3 lookdirection = state.upperBody.transform.forward;
@@ -136,8 +137,7 @@ public class TurretSeekingAndShooting : TurretBaseState
         Quaternion q = Quaternion.LookRotation(direction);  
         Transform projectile = Transform.Instantiate(projectilePrefab, muzzleFirePoint.transform.position,q);
         projectileRb = projectile.GetComponent<Rigidbody>();    
-        projectileRb.AddForce(direction * 1, ForceMode.Impulse);
-
+        projectileRb.AddForce(direction * missilemovementSpeed, ForceMode.Impulse);
     }
 
     float time;
