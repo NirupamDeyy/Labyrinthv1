@@ -39,7 +39,6 @@ public class MissileShootControl : MonoBehaviour
     private void Awake()
     {
         missileFireIndicator = GetComponent<MissileFireIndicator>();
-        
     }
     private void Update()
     {

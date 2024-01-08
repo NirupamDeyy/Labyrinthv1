@@ -8,11 +8,19 @@ public class TurretDisplays : MonoBehaviour
 {
     public List<Transform> turretParts;
     public Image healthBar;
-    public int turretHealth = 100;
-    private int maxTurretHealth = 100;
+    public float turretHealth = 100;
+
+    private float maxTurretHealth = 100;
+    public Material mat;
+    public Renderer ImageRenda;
+
     void Start()
     {
         Debug.Log(healthBar.fillAmount);
+         turretHealth = 100;
+         maxTurretHealth = 100;
+         mat = healthBar.material;
+         ImageRenda = healthBar.GetComponent<Renderer>();
     }
 
     public void DecreaseTurretHealth()
@@ -20,17 +28,35 @@ public class TurretDisplays : MonoBehaviour
         turretHealth--;
         ImageModifier(turretHealth);
     }
-    float i = 1.00f;
-    private void ImageModifier(int health)
+    private bool canTween =  true;
+    Color healthColor;
+    private void ImageModifier(float health)
     {
-        i = i - .01f;
-        healthBar.fillAmount = i;
-        Debug.Log("health" + health);
-        Debug.Log("maxTurretHealth" + maxTurretHealth);
+        healthBar.fillAmount = health / maxTurretHealth;
+        mat.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(10f));
+        if(health > 50)
+        {
+            healthColor = Color.white;
+        }
+        else if( health < 50)
+        {
+            healthColor = Color.yellow;
+        }
+        
+        if (canTween)
+        {
+            Debug.Log("tweening");
+            canTween = false;
+            healthBar.transform.DOPunchScale(new Vector3(0, 1, 0), 0.1f, 1, 1).OnComplete(() =>
+            ChangeImageColor(healthColor));
+        }
+    }
 
+    private void ChangeImageColor(Color color)
+    {
+        mat.SetColor("_BaseColor", color);
 
-        Debug.Log(healthBar.fillAmount);
-
-        // healthBar.DOFillAmount(health / maxTurretHealth, 0);
+        mat.SetColor("_EmissionColor", color * Mathf.LinearToGammaSpace(10f));
+        canTween = true;
     }
 }

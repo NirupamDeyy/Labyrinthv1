@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (add == true)
         {
-            Debug.Log("Increasing health");
+           // Debug.Log("Increasing health");
             healthBlocks[playerHealth].gameObject.SetActive(true);
             playerHealth++;
         }

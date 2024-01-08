@@ -61,14 +61,14 @@ public class PlayerShootControl : MonoBehaviour
         {
             if (Input.GetButtonUp("Fire1"))
             {
-                Debug.Log("stopFiring");
+               // Debug.Log("stopFiring");
                 StopFiring();
 
             }
             else if (Input.GetButtonDown("Fire1"))
             {
                 StartFiring();
-                Debug.Log("fire");
+               // Debug.Log("fire");
                 UpdateBullets(Time.deltaTime);
                 
             }
@@ -163,6 +163,9 @@ public class PlayerShootControl : MonoBehaviour
     {
         bullets.RemoveAll(bullet => bullet.time >= maxLifeTime);
     }
+
+    TurretDisplays turretDisplays;
+    TurretStateManager turretStateManager;
     void RaycastSegment(Vector3 start, Vector3 end, Bullet bullet)
     {
         Vector3 direction = end - start;
@@ -173,13 +176,31 @@ public class PlayerShootControl : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo, distance))
         {
             Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
+            if(hitInfo.transform.CompareTag("Turret"))
+            {
+                Debug.Log(hitInfo.transform.parent.parent.name);
+                
+                turretDisplays = hitInfo.transform.parent.parent.GetComponent<TurretDisplays>();
+
+                if(turretDisplays != null )
+                {
+                    turretDisplays.DecreaseTurretHealth();
+                }
+                else
+                {
+                    Debug.Log("TurretsDusplaynotfound");
+                }
+            }
+            
+
+            //Debug.Log(hitInfo.transform.tag);
             //Debug.Log(hitInfo.collider.transform.name);
-            Rigidbody rb = hitInfo.collider.GetComponent<Rigidbody>();
+            /*Rigidbody rb = hitInfo.collider.GetComponent<Rigidbody>();
             
             if (rb != null)
             {
                 rb.AddForceAtPosition(ray.direction * forceAmount, hitInfo.point, ForceMode.Impulse);
-            }
+            }*/
             bullet.tracer.transform.position = hitInfo.point;
             bullet.time = maxLifeTime;
 

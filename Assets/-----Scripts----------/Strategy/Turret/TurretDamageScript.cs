@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretDamageScript : MonoBehaviour
@@ -11,17 +9,37 @@ public class TurretDamageScript : MonoBehaviour
     {
         turretDisplays = GetComponent<TurretDisplays>();
         playerShootControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShootControl>();
+        if (playerShootControl != null )
+        {
+            Debug.Log("got player");
+        }
     }
 
-    // Update is called once per frame
+    public bool isuu = true;
+    public bool kill = false;
+    public string tag;
     void Update()
     {
-        if (playerShootControl != null && playerShootControl.isFiring)
+       tag = playerShootControl.hitInfo.transform.tag;
+        if (playerShootControl.isFiring)
         {
-            if (playerShootControl.hitInfo.collider.tag == "Turret")
+            if (playerShootControl.hitInfo.transform.CompareTag("Turret"))
             {
-                turretDisplays.DecreaseTurretHealth();
+                Debug.Log("the collider is......................................................................................... ");
+
+               turretDisplays.DecreaseTurretHealth();
+                kill = true;
+            }
+            else if(playerShootControl.hitInfo.transform == null)
+            {
+                Debug.Log("the collider is " + playerShootControl.hitInfo.collider.tag);
+                isuu = true;
             }
         }
-}
+        else
+        {
+            kill = false;
+            isuu = false;
+        }
+    }
 }

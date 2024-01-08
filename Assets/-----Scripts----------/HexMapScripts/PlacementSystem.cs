@@ -94,7 +94,7 @@ public class PlacementSystem : MonoBehaviour
 
     public void StartRemoving()
     {
-        Debug.Log("startRemoving");
+       // Debug.Log("startRemoving");
         StopPlacement();
         isPlacing = false;
         gridVisualization.SetActive(true);
