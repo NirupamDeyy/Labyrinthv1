@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+
 
 public class TurretDisplays : MonoBehaviour
 {
@@ -11,21 +11,46 @@ public class TurretDisplays : MonoBehaviour
     public float turretHealth = 100;
 
     private float maxTurretHealth = 100;
-    public Material mat;
-    public Renderer ImageRenda;
-
+    private Material matImage;
+    private List<Material> matTurretparts = new();
+    private List<Color> matTurretPartscolors = new();
     void Start()
     {
-        Debug.Log(healthBar.fillAmount);
-         turretHealth = 100;
-         maxTurretHealth = 100;
-         mat = healthBar.material;
-         ImageRenda = healthBar.GetComponent<Renderer>();
+        Material mat;
+        Renderer rend;
+        foreach (Transform t in turretParts)
+        {
+            rend = t.GetComponent<Renderer>();
+            mat = rend.material;
+            if (mat != null)
+            {
+                matTurretparts.Add(mat);
+            }
+            else
+            {
+                Debug.Log("material not found");
+            }
+        }
+        Color color;
+        foreach (Material material in matTurretparts)
+        {
+            if (material != null)
+            {
+                color = material.color;
+                matTurretPartscolors.Add(color);
+            }
+        }
+
+
+        turretHealth = 100;
+        maxTurretHealth = 100;
+        matImage = healthBar.material;
     }
 
     public void DecreaseTurretHealth()
     {
         turretHealth--;
+        ChangeSkinColors(Color.red);
         ImageModifier(turretHealth);
     }
     private bool canTween =  true;
@@ -33,8 +58,9 @@ public class TurretDisplays : MonoBehaviour
     private void ImageModifier(float health)
     {
         healthBar.fillAmount = health / maxTurretHealth;
-        mat.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(10f));
-        if(health > 50)
+        matImage.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(10f));
+        
+        if (health > 50)
         {
             healthColor = Color.white;
         }
@@ -42,7 +68,6 @@ public class TurretDisplays : MonoBehaviour
         {
             healthColor = Color.yellow;
         }
-        
         if (canTween)
         {
             Debug.Log("tweening");
@@ -54,9 +79,25 @@ public class TurretDisplays : MonoBehaviour
 
     private void ChangeImageColor(Color color)
     {
-        mat.SetColor("_BaseColor", color);
-
-        mat.SetColor("_EmissionColor", color * Mathf.LinearToGammaSpace(10f));
+        matImage.SetColor("_BaseColor", color);
+        matImage.SetColor("_EmissionColor", color * Mathf.LinearToGammaSpace(10f));
+        ResetSkinColors();
         canTween = true;
+    }
+
+    private void ChangeSkinColors(Color color)
+    {
+        foreach(Material mat in matTurretparts)
+        {
+            mat.SetColor("_BaseColor", color);
+        }
+    }
+
+    private void ResetSkinColors()
+    {
+        for(int i = 0; i < matTurretparts.Count; i++)
+        {
+            matTurretparts[i].SetColor("_BaseColor", matTurretPartscolors[i]);  
+        }
     }
 }

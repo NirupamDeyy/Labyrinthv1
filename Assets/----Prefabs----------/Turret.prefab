@@ -2385,10 +2385,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b4446d180eb134bb1c85ff6bb00b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretParts: []
+  turretParts:
+  - {fileID: 1073796523304397762}
+  - {fileID: 6183898283127567735}
+  - {fileID: 3755564866261430018}
+  - {fileID: 1316590315047023082}
+  - {fileID: 4818143186302084401}
+  - {fileID: 5433694018021512252}
+  - {fileID: 5430366467043907708}
   healthBar: {fileID: 1742520328152510235}
   turretHealth: 100
-  mat: {fileID: 0}
+  matImage: {fileID: 0}
   ImageRenda: {fileID: 0}
 --- !u!1 &5963293899927504538
 GameObject:
@@ -3452,7 +3459,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1068595416095979373, guid: f8ca6d331157d6d4889c5e9dd946e63c, type: 3}
+  - {fileID: -3846018093981099296, guid: 3973950f701b55e41a0fd0aaf130dfff, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4399,7 +4406,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9900244c1a644074d9fb129310a0542b, type: 3}
+  - {fileID: -8350873374891471581, guid: 6c3e097977f5ed4489748b1aeb442823, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
