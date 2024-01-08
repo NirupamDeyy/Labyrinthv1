@@ -14,6 +14,8 @@ public class PlayerHealth : MonoBehaviour
     public int playerHealthMax = 10;
     public Color warningHealthColor = Color.yellow;
     public Color lastHealthColor = Color.red;
+    private bool wait;
+
     void Start()
     {
         foreach(Transform t in HealthBarParent)
@@ -42,22 +44,49 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            Debug.Log("Got damage");
             playerHealth--;
             healthBlocks[playerHealth].gameObject.SetActive(false);
-            /*if (playerHealth == 2)
+            
+            if (playerHealth > 3)
             {
-                healthBlocks[playerHealth].color = warningHealthColor;
-                healthBlocks[playerHealth - 1].color = warningHealthColor;
+                ChangeImageColor(lastHealthColor, Color.white);
             }
-            else if (playerHealth == 1)
+            else if (playerHealth <= 3 && playerHealth >= 2)
             {
-                healthBlocks[playerHealth].color = lastHealthColor;
-            }*/
+                foreach (Image image in healthBlocks)
+                { image.color = Color.yellow; }
+                InvokeRepeating("BlinkImageColor", 0f, 1f);
+            }
+            else if(playerHealth <= 1)
+            {
+                foreach (Image image in healthBlocks)
+                { image.color = Color.red; }
+                InvokeRepeating("BlinkImageColor", 0f, 1f);
+            }
+
+
         }
         
 
         //Debug.Log(playerHealth);
+    }
+
+    private void ChangeImageColor(Color color, Color resetColor)
+    {
+        foreach(Image image in healthBlocks)
+        {
+            image.DOColor(color, 0.01f).OnComplete(() => image.DOColor(resetColor, 1));
+            
+        }
+    }
+
+    private void BlinkImageColor()
+    {
+        foreach (Image image in healthBlocks)
+        {
+            image.DOFade(0f, .5f).SetEase(Ease.OutQuad).OnComplete(() => image.DOFade(1, .5f).SetEase(Ease.OutQuad));
+        }
+        
     }
     private void OnCollisionEnter(Collision collision)
     {

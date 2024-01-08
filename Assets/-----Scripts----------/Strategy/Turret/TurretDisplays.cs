@@ -14,6 +14,8 @@ public class TurretDisplays : MonoBehaviour
     private Material matImage;
     private List<Material> matTurretparts = new();
     private List<Color> matTurretPartscolors = new();
+    public TurretStateManager turretStateManager;
+  
     void Start()
     {
         Material mat;
@@ -52,6 +54,9 @@ public class TurretDisplays : MonoBehaviour
         turretHealth--;
         ChangeSkinColors(Color.red);
         ImageModifier(turretHealth);
+        //Debug.Log(turretStateManager.currentState);
+        turretStateManager.dosomethig();
+        
     }
     private bool canTween =  true;
     Color healthColor;

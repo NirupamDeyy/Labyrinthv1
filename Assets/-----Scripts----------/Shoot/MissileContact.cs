@@ -47,7 +47,7 @@ public class MissileContact : MonoBehaviour
             Instantiate(explosionPrefab, position, rotation);
         }
 
-         Invoke("DestoryMissile", 0.1f);
+         Invoke("DestoryMissile", 0.5f);
     }
     private void Update()
     {
@@ -60,13 +60,14 @@ public class MissileContact : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 //Debug.Log(hit.transform.gameObject.name);
-                if (hit.transform.CompareTag("Player"))
+                if (hit.transform.CompareTag("Player") && hit.distance < impactDistance)
                 {
+                    Debug.Log("impac distance" + hit.distance);
                     playerHealth = hit.transform.GetComponent<PlayerHealth>();
                     if(playerHealth != null)
                     {
-                        //DrawLine(Color.cyan, hit.point);
-                        playerHealth.AddDeleteBlock(false);
+                        DrawLine(Color.cyan, hit.point);
+                        DecreaseHealth();
                     }
                     else
                     {
@@ -76,9 +77,15 @@ public class MissileContact : MonoBehaviour
                 }
             }
             
-            istriggered = false;
+            
         }
        
+    }
+
+    void DecreaseHealth()
+    {
+        playerHealth.AddDeleteBlock(false);
+        istriggered = false;
     }
     private void DrawLine(Color color, Vector3 point)
     {

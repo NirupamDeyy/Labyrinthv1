@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretStateManager : MonoBehaviour
 {
-    TurretBaseState currentState;
+    public TurretBaseState currentState;
     public TurretSleeping sleepingState = new();
     public TurretSeekingAndShooting seekingAndShooting = new();
     public TurretDestroying destroyingState = new();
@@ -28,26 +26,35 @@ public class TurretStateManager : MonoBehaviour
         animator = GetComponent<Animator>();
         lookTowardsPlayer = GetComponent<LookToPlayer>();
         lookTowardsPlayer.enabled = true;
-
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (currentState == seekingAndShooting)
-        {
-            Debug.Log("triggered");
-        }*/
         currentState.UpdateState(this);
+        Debug.Log(currentState.ToString());
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         currentState.OnCollisionEnter(this);
     }
-
+    public void dosomethig()
+    {
+        if (currentState == sleepingState)
+        {
+            SwitchState(seekingAndShooting);
+           
+        }
+        else
+        {
+            Debug.Log("curretnt state is not sleepin but:" + currentState);
+        }
+    }
     public void SwitchState(TurretBaseState state)
     {
+        Debug.Log("state changed to " +  state);
         currentState = state;
         state.EnterState(this, centreRaycastOrigin);
         if(currentState == seekingAndShooting)
@@ -65,6 +72,6 @@ public class TurretStateManager : MonoBehaviour
         animator.SetBool(animation,isTrue);
     }
 
-
+   
     
 }

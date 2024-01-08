@@ -2395,8 +2395,7 @@ MonoBehaviour:
   - {fileID: 5430366467043907708}
   healthBar: {fileID: 1742520328152510235}
   turretHealth: 100
-  matImage: {fileID: 0}
-  ImageRenda: {fileID: 0}
+  turretStateManager: {fileID: 2256762605654066717}
 --- !u!1 &5963293899927504538
 GameObject:
   m_ObjectHideFlags: 0
