@@ -15,12 +15,14 @@ public class TurretSleeping : TurretBaseState
     bool changeState;
     public override void EnterState(TurretStateManager state, Transform centreRayOrigin) 
     {
-        state.animator = state.GetComponent<Animator>();
+        Debug.Log("hello from sleeeping state");
+        //state.animator = state.GetComponent<Animator>();
         state.animator.enabled = true;
         state.PlayAnimayion(false, "IsWaking");
         player = GameObject.FindGameObjectWithTag("Player");
         centreRaycastOrigin = centreRayOrigin;
         changeState = true;
+        state.isWaking = false;
     }
     public override void UpdateState(TurretStateManager state) 
     {
@@ -37,11 +39,18 @@ public class TurretSleeping : TurretBaseState
                 changeState = false;
             }
         }
-        else// if more than threshold 
+        else if (currentDistance >= triggerDistance)// if more than threshold 
 
         {
             //Debug.Log("outside");
             DrawLine(Color.yellow);
+            if(state.isWaking)
+            {
+                Debug.Log("trynig to wake up");
+                state.SwitchState(state.seekingAndShooting);
+                state.isWaking = false;
+            }
+
         }
 
        /* if (istriggered)

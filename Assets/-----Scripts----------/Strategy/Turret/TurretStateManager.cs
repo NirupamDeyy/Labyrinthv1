@@ -15,8 +15,9 @@ public class TurretStateManager : MonoBehaviour
     public Transform baseBody;
     public Transform muzzleTransform;
     public Transform projectilePrefab;
-
     public Animator animator;
+
+    public bool isWaking = false;
     void Start()
     {
         //starting state for state machine
@@ -26,7 +27,6 @@ public class TurretStateManager : MonoBehaviour
         animator = GetComponent<Animator>();
         lookTowardsPlayer = GetComponent<LookToPlayer>();
         lookTowardsPlayer.enabled = true;
-       
     }
 
     // Update is called once per frame
@@ -34,6 +34,7 @@ public class TurretStateManager : MonoBehaviour
     {
         currentState.UpdateState(this);
         Debug.Log(currentState.ToString());
+       
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -42,15 +43,7 @@ public class TurretStateManager : MonoBehaviour
     }
     public void dosomethig()
     {
-        if (currentState == sleepingState)
-        {
-            SwitchState(seekingAndShooting);
-           
-        }
-        else
-        {
-            Debug.Log("curretnt state is not sleepin but:" + currentState);
-        }
+        isWaking = true;
     }
     public void SwitchState(TurretBaseState state)
     {

@@ -26,7 +26,7 @@ public class MissileContact : MonoBehaviour
     {
         istriggered = true;
         //dangerCollider.gameObject.SetActive(true); 
-        Debug.Log(collision.transform.name);
+        //Debug.Log(collision.transform.name);
      
         
         ContactPoint contact = collision.contacts[0];
@@ -62,7 +62,7 @@ public class MissileContact : MonoBehaviour
                 //Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.CompareTag("Player") && hit.distance < impactDistance)
                 {
-                    Debug.Log("impac distance" + hit.distance);
+                   // Debug.Log("impac distance" + hit.distance);
                     playerHealth = hit.transform.GetComponent<PlayerHealth>();
                     if(playerHealth != null)
                     {
@@ -73,7 +73,7 @@ public class MissileContact : MonoBehaviour
                     {
                         Debug.Log("playerhealthNotfound");
                     }
-                    Debug.Log("got player");
+                    //Debug.Log("got player");
                 }
             }
             

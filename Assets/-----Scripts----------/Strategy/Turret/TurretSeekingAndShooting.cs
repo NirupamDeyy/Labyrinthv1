@@ -13,7 +13,7 @@ public class TurretSeekingAndShooting : TurretBaseState
     private bool istriggered;
     float currentDistance;
     GameObject player;
-    bool changeState;
+    bool changeStateinShooting;
     Transform muzzle;
     Transform muzzleFirePoint;
     Transform projectilePrefab;
@@ -28,18 +28,19 @@ public class TurretSeekingAndShooting : TurretBaseState
         
         //Debug.Log(player.name);
         centreRaycastOrigin = centreRayOrigin;
-        changeState = true;
+        changeStateinShooting = true;
     }
 
     IEnumerator DisableAnimator(TurretStateManager state)
     {
-        yield return new WaitForSeconds(2);//time to complete animation
-        if (currentDistance < triggerDistance)
+        yield return new WaitForSeconds(1.5f);//time to complete animation
+        state.animator.enabled = false;
+        /*if (currentDistance < triggerDistance)
         {
             
             state.animator.enabled = false;
             //shooting chalu
-        }
+        }*/
         muzzle = state.muzzleTransform;
         muzzleFirePoint = muzzle.GetComponentInChildren<Transform>();   
     }
@@ -61,10 +62,11 @@ public class TurretSeekingAndShooting : TurretBaseState
             //DrawLine(Color.yellow);
             time = time + Time.deltaTime;
             //Debug.Log(time);
-            if (changeState && time > 10f)
+            if (changeStateinShooting && time > 10f)
             {
+                time = 0;
                 StartTimer(state);
-                changeState = false;
+                changeStateinShooting = false;
             }
         }
 
@@ -89,10 +91,7 @@ public class TurretSeekingAndShooting : TurretBaseState
         }
     }
     private void AimTurretTowardsVector(TurretStateManager state ,Vector3 point)
-    {/*
-        state.upperBody.transform.LookAt(point);
-        Vector3 lookdirection = state.upperBody.transform.forward;
-        state.baseBody.forward = new Vector3(lookdirection.x, 0, lookdirection.z);*/
+    {
 
         // Get the direction from the turret's current position to the point
         Vector3 direction = (point - state.upperBody.position).normalized;
@@ -145,7 +144,7 @@ public class TurretSeekingAndShooting : TurretBaseState
     {
         if (currentDistance > triggerDistance)
         {
-            changeState = true;
+            changeStateinShooting = true;
             state.SwitchState(state.sleepingState);
         }
     }
