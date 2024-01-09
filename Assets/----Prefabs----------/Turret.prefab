@@ -988,7 +988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2386,6 +2386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbac2f4619514b47a2e5f6a7ed13d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sleepingImage: {fileID: 21300000, guid: 3449fb69e02441b49b9e860d877407ea, type: 3}
+  shootingImage: {fileID: 21300000, guid: 521b7ed17018df742b2c7d275b7bfc0b, type: 3}
+  deadImage: {fileID: 21300000, guid: 887e7dbabb7a6384fad51d84f4b4ba6f, type: 3}
+  stateImage: {fileID: 7657404373872487750}
   turretParts:
   - {fileID: 1073796523304397762}
   - {fileID: 6183898283127567735}
@@ -2396,6 +2400,9 @@ MonoBehaviour:
   - {fileID: 5430366467043907708}
   healthBar: {fileID: 1742520328152510235}
   turretHealth: 100
+  matImage: {fileID: 0}
+  matTurretparts: []
+  matTurretPartscolors: []
   turretStateManager: {fileID: 2256762605654066717}
 --- !u!1 &5963293899927504538
 GameObject:

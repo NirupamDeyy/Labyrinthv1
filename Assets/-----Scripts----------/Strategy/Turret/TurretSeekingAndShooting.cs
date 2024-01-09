@@ -44,6 +44,8 @@ public class TurretSeekingAndShooting : TurretBaseState
         muzzle = state.muzzleTransform;
         muzzleFirePoint = muzzle.GetComponentInChildren<Transform>();   
     }
+    Vector3 direction;
+    Vector3 shootDirection;
     public override void UpdateState(TurretStateManager state)
     {
         //check the distance
@@ -74,8 +76,12 @@ public class TurretSeekingAndShooting : TurretBaseState
         {
            // Debug.Log("seeking");
            
-            Vector3 direction = (player.transform.position - centreRaycastOrigin.position).normalized;  
-            Vector3 shootDirection = (player.transform.position - muzzleFirePoint.position).normalized;
+            direction = (player.transform.position - centreRaycastOrigin.position).normalized;
+            
+            if (muzzleFirePoint != null)
+            {
+                shootDirection = (player.transform.position - muzzleFirePoint.position).normalized;
+            }
             RaycastHit hit;
             Ray ray = new Ray(centreRaycastOrigin.position, direction);
             
@@ -84,6 +90,7 @@ public class TurretSeekingAndShooting : TurretBaseState
                 //Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.CompareTag ("Player") )
                 {
+                    if(muzzleFirePoint != null)
                     Shoot(shootDirection);
                    // Debug.Log("got player");
                     AimTurretTowardsVector(state, hit.point);
@@ -95,7 +102,6 @@ public class TurretSeekingAndShooting : TurretBaseState
     }
     private void AimTurretTowardsVector(TurretStateManager state ,Vector3 point)
     {
-
         // Get the direction from the turret's current position to the point
         Vector3 direction = (point - state.upperBody.position).normalized;
 
