@@ -69,10 +69,13 @@ public class TurretSeekingAndShooting : TurretBaseState
                 changeStateinShooting = false;
             }
         }
-
-        if (istriggered)
+        
+        if (istriggered || state.trigger)
         {
+           // Debug.Log("seeking");
+           
             Vector3 direction = (player.transform.position - centreRaycastOrigin.position).normalized;  
+            Vector3 shootDirection = (player.transform.position - muzzleFirePoint.position).normalized;
             RaycastHit hit;
             Ray ray = new Ray(centreRaycastOrigin.position, direction);
             
@@ -81,7 +84,7 @@ public class TurretSeekingAndShooting : TurretBaseState
                 //Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.CompareTag ("Player") )
                 {
-                    Shoot(direction + new Vector3(0,0.1f,0));
+                    Shoot(shootDirection);
                    // Debug.Log("got player");
                     AimTurretTowardsVector(state, hit.point);
                 }
@@ -145,6 +148,7 @@ public class TurretSeekingAndShooting : TurretBaseState
         if (currentDistance > triggerDistance)
         {
             changeStateinShooting = true;
+            
             state.SwitchState(state.sleepingState);
         }
     }

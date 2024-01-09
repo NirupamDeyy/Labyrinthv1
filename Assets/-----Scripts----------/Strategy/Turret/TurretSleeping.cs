@@ -15,7 +15,7 @@ public class TurretSleeping : TurretBaseState
     bool changeState;
     public override void EnterState(TurretStateManager state, Transform centreRayOrigin) 
     {
-        Debug.Log("hello from sleeeping state");
+        //Debug.Log("hello from sleeeping state");
         //state.animator = state.GetComponent<Animator>();
         state.animator.enabled = true;
         state.PlayAnimayion(false, "IsWaking");
@@ -23,6 +23,7 @@ public class TurretSleeping : TurretBaseState
         centreRaycastOrigin = centreRayOrigin;
         changeState = true;
         state.isWaking = false;
+        state.trigger = false;
     }
     public override void UpdateState(TurretStateManager state) 
     {
@@ -46,7 +47,6 @@ public class TurretSleeping : TurretBaseState
             DrawLine(Color.yellow);
             if(state.isWaking)
             {
-                Debug.Log("trynig to wake up");
                 state.SwitchState(state.seekingAndShooting);
                 state.isWaking = false;
             }

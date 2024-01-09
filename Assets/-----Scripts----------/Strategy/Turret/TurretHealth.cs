@@ -4,16 +4,16 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 
-public class TurretDisplays : MonoBehaviour
+public class TurretHealth : MonoBehaviour
 {
     public List<Transform> turretParts;
     public Image healthBar;
     public float turretHealth = 100;
 
     private float maxTurretHealth = 100;
-    private Material matImage;
-    private List<Material> matTurretparts = new();
-    private List<Color> matTurretPartscolors = new();
+    public Material matImage;
+    public List<Material> matTurretparts = new();
+    public List<Color> matTurretPartscolors = new();
     public TurretStateManager turretStateManager;
   
     void Start()
@@ -42,8 +42,6 @@ public class TurretDisplays : MonoBehaviour
                 matTurretPartscolors.Add(color);
             }
         }
-
-
         turretHealth = 100;
         maxTurretHealth = 100;
         matImage = healthBar.material;
@@ -51,11 +49,21 @@ public class TurretDisplays : MonoBehaviour
 
     public void DecreaseTurretHealth()
     {
-        turretHealth--;
-        ChangeSkinColors(Color.red);
-        ImageModifier(turretHealth);
+        if(turretStateManager.currentState == turretStateManager.sleepingState)
+        {
+            ChangeSkinColors(Color.white);
+            turretStateManager.dosomethig();
+            Invoke("ResetSkinColors", 2);
+        }
+        else if(turretStateManager.currentState == turretStateManager.seekingAndShooting)
+        {
+            turretHealth--;
+            ChangeSkinColors(Color.red);
+            ImageModifier(turretHealth);
+        }
+        
         //Debug.Log(turretStateManager.currentState);
-        turretStateManager.dosomethig();
+        
         
     }
     private bool canTween =  true;
@@ -75,7 +83,7 @@ public class TurretDisplays : MonoBehaviour
         }
         if (canTween)
         {
-            Debug.Log("tweening");
+           
             canTween = false;
             healthBar.transform.DOPunchScale(new Vector3(0, 1, 0), 0.1f, 1, 1).OnComplete(() =>
             ChangeImageColor(healthColor));

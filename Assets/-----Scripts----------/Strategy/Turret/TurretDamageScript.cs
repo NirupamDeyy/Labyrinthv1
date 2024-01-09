@@ -4,10 +4,10 @@ public class TurretDamageScript : MonoBehaviour
 {
     PlayerShootControl playerShootControl;
     public int enemyHealth;
-    TurretDisplays turretDisplays;
+    TurretHealth turretDisplays;
     void Start()
     {
-        turretDisplays = GetComponent<TurretDisplays>();
+        turretDisplays = GetComponent<TurretHealth>();
         playerShootControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShootControl>();
         if (playerShootControl != null )
         {

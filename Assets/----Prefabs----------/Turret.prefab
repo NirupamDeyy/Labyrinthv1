@@ -923,12 +923,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2425359944512940102}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.521, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.151, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 267521152453850038}
+  m_Father: {fileID: 558419615831433753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2538219410855960160
 GameObject:
@@ -2299,7 +2299,6 @@ Transform:
   - {fileID: 566581281900513497}
   - {fileID: 1820158744777452337}
   - {fileID: 149757897585488976}
-  - {fileID: 1444622791652926699}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2256762605654066717
@@ -2322,7 +2321,9 @@ MonoBehaviour:
   muzzleTransform: {fileID: 1073796523304397762}
   projectilePrefab: {fileID: 3867943443291102780, guid: 2a70377e66cece44eb6e66beecccb897,
     type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 4362691158257735642}
+  isWaking: 0
+  trigger: 0
 --- !u!95 &4362691158257735642
 Animator:
   serializedVersion: 5
@@ -2382,7 +2383,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5708769930581598982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96b4446d180eb134bb1c85ff6bb00b02, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bbac2f4619514b47a2e5f6a7ed13d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   turretParts:
@@ -3305,6 +3306,7 @@ RectTransform:
   - {fileID: 3353021002629490459}
   - {fileID: 6772358704507817744}
   - {fileID: 6431951232625125634}
+  - {fileID: 1444622791652926699}
   m_Father: {fileID: 149757897585488976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

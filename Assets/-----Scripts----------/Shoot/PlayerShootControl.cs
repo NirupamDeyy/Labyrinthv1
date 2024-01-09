@@ -164,7 +164,7 @@ public class PlayerShootControl : MonoBehaviour
         bullets.RemoveAll(bullet => bullet.time >= maxLifeTime);
     }
 
-    TurretDisplays turretDisplays;
+    TurretHealth turretHealth;
     TurretStateManager turretStateManager;
     void RaycastSegment(Vector3 start, Vector3 end, Bullet bullet)
     {
@@ -178,13 +178,13 @@ public class PlayerShootControl : MonoBehaviour
             Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
             if(hitInfo.transform.CompareTag("Turret"))
             {
-                Debug.Log(hitInfo.transform.parent.parent.name);
+                //Debug.Log(hitInfo.transform.parent.parent.name);
                 
-                turretDisplays = hitInfo.transform.parent.parent.GetComponent<TurretDisplays>();
+                turretHealth = hitInfo.transform.parent.parent.GetComponent<TurretHealth>();
 
-                if(turretDisplays != null )
+                if(turretHealth != null )
                 {
-                    turretDisplays.DecreaseTurretHealth();
+                    turretHealth.DecreaseTurretHealth();
                 }
                 else
                 {

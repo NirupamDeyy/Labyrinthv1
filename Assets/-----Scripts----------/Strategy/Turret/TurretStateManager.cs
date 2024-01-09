@@ -18,6 +18,7 @@ public class TurretStateManager : MonoBehaviour
     public Animator animator;
 
     public bool isWaking = false;
+    public bool trigger = false;
     void Start()
     {
         //starting state for state machine
@@ -33,7 +34,7 @@ public class TurretStateManager : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
-        Debug.Log(currentState.ToString());
+       // Debug.Log(currentState.ToString());
        
     }
 
@@ -44,10 +45,11 @@ public class TurretStateManager : MonoBehaviour
     public void dosomethig()
     {
         isWaking = true;
+        trigger = true;
     }
     public void SwitchState(TurretBaseState state)
     {
-        Debug.Log("state changed to " +  state);
+       // Debug.Log("state changed to " +  state);
         currentState = state;
         state.EnterState(this, centreRaycastOrigin);
         if(currentState == seekingAndShooting)
