@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 141c538bca1b3da40b74d0bff97db71b, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -965,7 +965,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.0545}
-  m_SizeDelta: {x: 0.05, y: 0.05}
+  m_SizeDelta: {x: 0.1, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2170558515025064901
 CanvasRenderer:
@@ -987,7 +987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: -876546973899608171, guid: 4cb8eaca85aa63e4389d693b7da578fb,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2322,6 +2323,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3867943443291102780, guid: 2a70377e66cece44eb6e66beecccb897,
     type: 3}
   animator: {fileID: 4362691158257735642}
+  health: {fileID: 6079848288360428192}
   isWaking: 0
   trigger: 0
 --- !u!95 &4362691158257735642
@@ -2386,10 +2388,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbac2f4619514b47a2e5f6a7ed13d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sleepingImage: {fileID: 21300000, guid: 3449fb69e02441b49b9e860d877407ea, type: 3}
-  shootingImage: {fileID: 21300000, guid: 521b7ed17018df742b2c7d275b7bfc0b, type: 3}
-  deadImage: {fileID: 21300000, guid: 887e7dbabb7a6384fad51d84f4b4ba6f, type: 3}
+  sleepingImage: {fileID: 21300000, guid: 35fd263ca5359054c9655c00b91d58af, type: 3}
+  shootingImage: {fileID: 21300000, guid: 637ea4fad71997f4fafa12feaa4f8cc4, type: 3}
+  deadImage: {fileID: 21300000, guid: f228617f6c0fdde47a093f636870daf4, type: 3}
   stateImage: {fileID: 7657404373872487750}
+  materialLabel: {fileID: -876546973899608171, guid: 4cb8eaca85aa63e4389d693b7da578fb,
+    type: 3}
+  matLabel: {fileID: 0}
   turretParts:
   - {fileID: 1073796523304397762}
   - {fileID: 6183898283127567735}
@@ -2400,6 +2405,7 @@ MonoBehaviour:
   - {fileID: 5430366467043907708}
   healthBar: {fileID: 1742520328152510235}
   turretHealth: 100
+  materialUIImage: {fileID: 2100000, guid: 141c538bca1b3da40b74d0bff97db71b, type: 2}
   matImage: {fileID: 0}
   matTurretparts: []
   matTurretPartscolors: []

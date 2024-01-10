@@ -74,7 +74,6 @@ public class PlacementSystem : MonoBehaviour
                                            soundFeedback);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
-        //itemTracking.isGeneratingProcedurally = false;
     }
 
     public void RemoveAll()
@@ -107,23 +106,27 @@ public class PlacementSystem : MonoBehaviour
     Vector3Int newPos;
     public int xOrigin, yorigin;
     public bool removeAll;
-    public int numberofWallToSpawn;
-    int numberofCoinsToSpawn;
+    int numberofWallToSpawn, numberofCoinsToSpawn, numberofTurretsToSpawn;
+
+
  
     public IEnumerator GenerateProceduralMap()
     {
         itemTracking.isGeneratingProcedurally = true;
         numberofCoinsToSpawn = itemTracking.maxItemCounts[0];
         numberofWallToSpawn = itemTracking.maxItemCounts[1];
+        numberofTurretsToSpawn = itemTracking.maxItemCounts[2];
         RemoveAll();
         createProceduraly = true;
         canGenerate = true;
-        //yield return new WaitForSeconds(1);
+
         StartPlacement(2);
         CreateProceduralMap(numberofWallToSpawn + 10);
-       // yield return new WaitForSeconds(1);
         StartPlacement(1);
         CreateProceduralMap(numberofCoinsToSpawn + 10);
+        StartPlacement(3);
+        CreateProceduralMap(numberofCoinsToSpawn + 10);
+        StopPlacement();
         yield return new WaitForSeconds(1);
         iswhatfalse();
     }
@@ -177,14 +180,16 @@ public class PlacementSystem : MonoBehaviour
         {
             return;
         }
-        if (!createProceduraly && itemTracking.CanPlaceItems(itemIDCache) && isPlacing)
+        if ( itemTracking.CanPlaceItems(itemIDCache) && isPlacing)
         {
             if(itemIDCache == 1)
             {
+                if(!createProceduraly)  
                 showInfoTextScript.ShowInfoText("No Coin Left", 2);
             }
             else if(itemIDCache == 2)
             {
+                if(!createProceduraly)  
                 showInfoTextScript.ShowInfoText("No Tile Left", 2);
             }
             return;

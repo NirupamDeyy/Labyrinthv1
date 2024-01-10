@@ -16,7 +16,7 @@ public class TurretStateManager : MonoBehaviour
     public Transform muzzleTransform;
     public Transform projectilePrefab;
     public Animator animator;
-
+    public TurretHealth health;
     public bool isWaking = false;
     public bool trigger = false;
     void Start()
@@ -51,6 +51,7 @@ public class TurretStateManager : MonoBehaviour
        // Debug.Log("state changed to " +  state);
         currentState = state;
         state.EnterState(this, centreRaycastOrigin);
+        health.DidSomething();
         if(currentState == seekingAndShooting)
         {
             triggerVisualizerScript.Triggered(true);

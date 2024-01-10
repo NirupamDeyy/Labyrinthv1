@@ -151,7 +151,8 @@ public class ItemTracking : MonoBehaviour
         }
         else
         {
-            showInfoText.ShowInfoText("Please Select An Item", 1);
+            if (!isGeneratingProcedurally)
+                showInfoText.ShowInfoText("Please Select An Item", 1);
             return false;
             
         }

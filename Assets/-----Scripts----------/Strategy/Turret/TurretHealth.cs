@@ -8,6 +8,8 @@ public class TurretHealth : MonoBehaviour
 {
     public Sprite sleepingImage, shootingImage, deadImage;
     public Image stateImage;
+    public Material materialLabel;
+    public Material matLabel;
     private enum State
     {
         sleeping,
@@ -20,6 +22,7 @@ public class TurretHealth : MonoBehaviour
     public float turretHealth = 100;
 
     private float maxTurretHealth = 100;
+    public Material materialUIImage;
     public Material matImage;
     public List<Material> matTurretparts = new();
     public List<Color> matTurretPartscolors = new();
@@ -27,6 +30,9 @@ public class TurretHealth : MonoBehaviour
   
     void Start()
     {
+        Material matLabelInstance = new Material(materialLabel);
+        matLabel = matLabelInstance;
+
         Material mat;
         Renderer rend;
         foreach (Transform t in turretParts)
@@ -53,6 +59,10 @@ public class TurretHealth : MonoBehaviour
         }
         turretHealth = 100;
         maxTurretHealth = 100;
+        //matImage = healthBar.material;
+        Material matInstance = new Material(materialUIImage);
+        healthBar.material = matInstance;
+
         matImage = healthBar.material;
     }
     bool canDecreaseHealth;
@@ -66,7 +76,6 @@ public class TurretHealth : MonoBehaviour
                 
                 if(turretHealth > 1)
                 {
-                    SwitchImage(State.sleeping);
                     ChangeSkinColors(Color.white);
                     turretStateManager.dosomethig();
                     Invoke("ResetSkinColors", 2);
@@ -82,7 +91,7 @@ public class TurretHealth : MonoBehaviour
                     {
                         ChangeSkinColors(Color.red);
                         ImageModifier(turretHealth);
-                        SwitchImage(State.shooting);
+                        
                     }
                         
                 }
@@ -95,25 +104,38 @@ public class TurretHealth : MonoBehaviour
            
         }
     }
+    public void DidSomething()
+    {
+        if (turretStateManager.currentState == turretStateManager.sleepingState)
+        {
+            SwitchImage(State.sleeping);
+        }
+        else if (turretStateManager.currentState == turretStateManager.seekingAndShooting)
+        {
+            SwitchImage(State.shooting);
+        }
+    }
 
-    void SwitchImage(State state)
+            void SwitchImage(State state)
     {
         switch(state)
         {
             case State.sleeping:
-                stateImage.sprite = sleepingImage;
+                matLabel.SetTexture("_Image", sleepingImage.texture);
                 break;
             case State.shooting:
-                stateImage.sprite = shootingImage;
+                matLabel.SetTexture("_Image", shootingImage.texture);
                 break;
             case State.dead:
-                stateImage.sprite = deadImage;
+                matLabel.SetTexture("_Image", deadImage.texture);
                 break;
 
             default:
-                stateImage.sprite = sleepingImage;
+                matLabel.SetTexture("_Image", sleepingImage.texture);
                 break;
         }
+
+        stateImage.material = matLabel;
     }
     private bool canTween =  true;
     Color healthColor;
