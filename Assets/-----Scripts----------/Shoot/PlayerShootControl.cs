@@ -155,7 +155,6 @@ public class PlayerShootControl : MonoBehaviour
                 Vector3 p1 = GetPosition(bullet); //current position of bullet
                 RaycastSegment(p0, p1, bullet);
             });
-       
         
     }
 

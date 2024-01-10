@@ -6,7 +6,7 @@ public class Timer : MonoBehaviour
     public float timeRemaininginSecs = 120;
     public bool timerIsRunning = false;
     public TMP_Text showTime;
-    public ActionUIconrol actionUIconrol;
+    public ActionUIcontrol actionUIcontrol;
     float initialTime = 2f;
 
     private void Start()
@@ -58,7 +58,7 @@ public class Timer : MonoBehaviour
 
     private void TimeEndedFunction()
     {
-        actionUIconrol.Pause();
-        actionUIconrol.ShowTimeUpText();
+        actionUIcontrol.Pause();
+        actionUIcontrol.ShowTimeUpText();
     }
 }

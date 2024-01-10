@@ -74,6 +74,7 @@ public class PlacementSystem : MonoBehaviour
                                            soundFeedback);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
+        //itemTracking.isGeneratingProcedurally = false;
     }
 
     public void RemoveAll()
@@ -84,7 +85,7 @@ public class PlacementSystem : MonoBehaviour
         {
             for (int y = -5; y <= 7; y++)
             {
-                Debug.Log("xxxx");    
+                //Debug.Log("xxxx");    
                 newPos = new Vector3Int(x, y, 0);
                 PlaceStructure();
             }
@@ -111,6 +112,7 @@ public class PlacementSystem : MonoBehaviour
  
     public IEnumerator GenerateProceduralMap()
     {
+        itemTracking.isGeneratingProcedurally = true;
         numberofCoinsToSpawn = itemTracking.maxItemCounts[0];
         numberofWallToSpawn = itemTracking.maxItemCounts[1];
         RemoveAll();
@@ -157,6 +159,7 @@ public class PlacementSystem : MonoBehaviour
     {
         canGenerate = false;
         createProceduraly = false;
+        itemTracking.isGeneratingProcedurally = false;
         removeAll = false;
     }
     IEnumerator GenerateTile( Vector3Int pos)
@@ -174,7 +177,7 @@ public class PlacementSystem : MonoBehaviour
         {
             return;
         }
-        if (itemTracking.CanPlaceItems(itemIDCache) && isPlacing)
+        if (!createProceduraly && itemTracking.CanPlaceItems(itemIDCache) && isPlacing)
         {
             if(itemIDCache == 1)
             {

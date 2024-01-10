@@ -8,7 +8,7 @@ public class BallPlayerMovement : MonoBehaviour
 {
     [SerializeField] private BoxCollider playerCatcherCollider;
     public ImageFaderScript imageFaderScript;
-    public ActionUIconrol actionUIconrol;
+    public ActionUIcontrol actionUIcontrol;
     public float speed = 5.0f;
     public float rotationSpeed = 2.0f;
     public float rotationDamping = 0.5f;
@@ -62,7 +62,7 @@ public class BallPlayerMovement : MonoBehaviour
 
     private void ShowPauseMenu()
     {
-        actionUIconrol.PauseWithoutResumeButton();
+        actionUIcontrol.PauseWithoutResumeButton();
     }
 
     private void Update()

@@ -10,7 +10,7 @@ public class ItemTracking : MonoBehaviour
     private TMP_Text[] itemTexts;
     public CoinsTracker coinsTracker;
     public int[] maxItemCounts;
-
+    public bool isGeneratingProcedurally;
     [SerializeField]
     private int[] itemsLeft;
 
@@ -54,12 +54,12 @@ public class ItemTracking : MonoBehaviour
     }
     public void SavePositionsOfItems(int ID, bool isPlacin, Vector3Int pos)
     {
-        
         if (isPlacin)
         {
-            if (FloorPositions.Contains(pos) || wallPositions.Contains(pos) || TurretPositions.Contains(pos))
+            if (FloorPositions.Contains(pos) || wallPositions.Contains(pos) || TurretPositions.Contains(pos) )
             {
-                showInfoText.ShowInfoText("Cannot Place Here.", 2);
+                if (!isGeneratingProcedurally)
+                    showInfoText.ShowInfoText("Cannot Place Here.", 2);
             }
             else
             {
@@ -69,17 +69,20 @@ public class ItemTracking : MonoBehaviour
                         //save position of ID 0
 
                         FloorPositions.Add(pos);
-                        showInfoText.ShowInfoText("Coin Placed at " + pos + " .", 0);
+                        if(!isGeneratingProcedurally)
+                            showInfoText.ShowInfoText("Coin Placed at " + pos + " .", 0);
                         break;
                     case 2:
                         //save position of ID 1
                         wallPositions.Add(pos);
-                        showInfoText.ShowInfoText("Wall Placed at " + pos + " .", 0);
+                        if (!isGeneratingProcedurally)
+                            showInfoText.ShowInfoText("Wall Placed at " + pos + " .", 0);
                         break;
                     case 3:
                         //save position of ID 1
                         TurretPositions.Add(pos);
-                        showInfoText.ShowInfoText("Wall Placed at " + pos + " .", 0);
+                        if (!isGeneratingProcedurally)
+                            showInfoText.ShowInfoText("Wall Placed at " + pos + " .", 0);
                         break;
                     default:
 

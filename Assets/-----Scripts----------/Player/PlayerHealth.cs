@@ -7,6 +7,8 @@ using System;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public ActionUIcontrol actionUIcontrol;
+    public ImageFaderScript imageFader;
     public List<Image> healthBlocks;
     public Transform HealthBarParent;
     [Range(0, 10)]
@@ -15,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     public Color warningHealthColor = Color.yellow;
     public Color lastHealthColor = Color.red;
     private bool wait;
+
 
     void Start()
     {
@@ -42,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
             healthBlocks[playerHealth].gameObject.SetActive(true);
             playerHealth++;
         }
-        else
+        else if( playerHealth >= 0 )
         {
             playerHealth--;
             healthBlocks[playerHealth].gameObject.SetActive(false);
@@ -57,19 +60,28 @@ public class PlayerHealth : MonoBehaviour
                 { image.color = Color.yellow; }
                 InvokeRepeating("BlinkImageColor", 0f, 1f);
             }
-            else if(playerHealth <= 1)
+            else if(playerHealth == 1)
             {
                 foreach (Image image in healthBlocks)
                 { image.color = Color.red; }
                 InvokeRepeating("BlinkImageColor", 0f, 1f);
             }
-
-
+            else if(playerHealth <= 0)
+            {
+                //gameOver
+                Debug.Log("you dead");
+                imageFader.FadeImageMethod(2, false);
+                Invoke("HealthZero", 2);
+            }
         }
-        
-
-        //Debug.Log(playerHealth);
     }
+
+    private void HealthZero()
+    {
+        actionUIcontrol.PauseWithoutResumeButton();
+        actionUIcontrol.ShowDeathText();
+    }
+
 
     private void ChangeImageColor(Color color, Color resetColor)
     {

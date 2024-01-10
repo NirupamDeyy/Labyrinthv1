@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 
-public class ActionUIconrol : MonoBehaviour
+public class ActionUIcontrol : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     [SerializeField] private GameObject player;
@@ -97,6 +97,11 @@ public class ActionUIconrol : MonoBehaviour
     public void ShowTimeUpText()
     {
        winText.text = "MISSION FAILED, TIME IS UP.";
+    }
+
+    public void ShowDeathText()
+    {
+        winText.text = "Game Over, You Died";
     }
 
 }

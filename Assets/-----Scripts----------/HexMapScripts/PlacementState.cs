@@ -85,7 +85,7 @@ public class PlacementState : IBuildingState
     {
         
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : cubeData;
-        Debug.Log(database.objectsData[selectedObjectIndex].Size);
+        //Debug.Log(database.objectsData[selectedObjectIndex].Size);
         return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
     }
 

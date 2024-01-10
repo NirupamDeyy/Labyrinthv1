@@ -35,7 +35,6 @@ public class TurretStateManager : MonoBehaviour
     {
         currentState.UpdateState(this);
        // Debug.Log(currentState.ToString());
-       
     }
 
     private void OnCollisionEnter(Collision collision)

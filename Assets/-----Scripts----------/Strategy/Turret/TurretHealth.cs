@@ -88,10 +88,11 @@ public class TurretHealth : MonoBehaviour
                 }
             }
         }
-        if(turretHealth < 1)
+        if(turretHealth <= 1)
         {
             ChangeSkinColors(Color.black);
             ImageModifier(0);
+           
         }
     }
 
@@ -132,7 +133,7 @@ public class TurretHealth : MonoBehaviour
         else if(health <=1)
         {
             SwitchImage(State.dead);
-            ChangeSkinColors(Color.black);
+            turretStateManager.enabled = false;
         }
         if (canTween)
         {
@@ -161,10 +162,14 @@ public class TurretHealth : MonoBehaviour
 
     private void ResetSkinColors()
     {
-        for(int i = 0; i < matTurretparts.Count; i++)
+        if(turretHealth > 1)
         {
-            matTurretparts[i].SetColor("_BaseColor", matTurretPartscolors[i]);  
+            for (int i = 0; i < matTurretparts.Count; i++)
+            {
+                matTurretparts[i].SetColor("_BaseColor", matTurretPartscolors[i]);
+            }
+            canDecreaseHealth = true;
         }
-        canDecreaseHealth = true;
+        
     }
 }

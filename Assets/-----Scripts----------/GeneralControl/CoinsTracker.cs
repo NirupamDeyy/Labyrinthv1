@@ -12,7 +12,7 @@ public class CoinsTracker : MonoBehaviour
     [SerializeField] private int totalNumberOfCoins;
     [SerializeField] private List<GameObject> coins;
     public int coinsCollected;//updated from general player func
-    public ActionUIconrol actionUIconrol;
+    public ActionUIcontrol actionUIconrol;
 
     void FixedUpdate()
     {
