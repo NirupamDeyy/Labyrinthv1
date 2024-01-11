@@ -66,8 +66,9 @@ public class TurretHealth : MonoBehaviour
         matImage = healthBar.material;
     }
     bool canDecreaseHealth;
-    public void DecreaseTurretHealth()
+    public void DecreaseTurretHealth( int damageAmount)
     {
+        Debug.Log("got hit");
         if(turretHealth > 0)
         {
             if (turretStateManager.currentState == turretStateManager.sleepingState)
@@ -86,7 +87,7 @@ public class TurretHealth : MonoBehaviour
             {
                 if (canDecreaseHealth)
                 {
-                    turretHealth--;
+                    turretHealth = turretHealth - damageAmount;
                     if (turretHealth > 1)
                     {
                         ChangeSkinColors(Color.red);

@@ -12,6 +12,7 @@ TagManager:
   - playerCatcherCollider
   - Turret
   - Danger
+  - TurretParent
   layers:
   - Default
   - TransparentFX

@@ -84,7 +84,7 @@ public class MissileShootControl : MonoBehaviour
 
                     
                     
-                    Debug.Log("The duration is: " + duration2);
+                   // Debug.Log("The duration is: " + duration2);
                     Invoke("ChangeBool", duration2);
                     //missilePrefab.DOMove(targetPoint2.position, duration2).SetEase(Ease.Linear).OnComplete(() => { Debug.Log("Reached the target2!"); });
                     Vector3 direction = (targetPoint2.position - targetPoint.position).normalized;

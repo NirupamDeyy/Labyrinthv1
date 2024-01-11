@@ -183,11 +183,11 @@ public class PlayerShootControl : MonoBehaviour
 
                 if(turretHealth != null )
                 {
-                    turretHealth.DecreaseTurretHealth();
+                    turretHealth.DecreaseTurretHealth(1);
                 }
                 else
                 {
-                    Debug.Log("TurretsDusplaynotfound");
+                    //Debug.Log("TurretsDusplaynotfound");
                 }
             }
             

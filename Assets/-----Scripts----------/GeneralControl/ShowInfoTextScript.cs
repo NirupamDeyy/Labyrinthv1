@@ -18,13 +18,32 @@ public class ShowInfoTextScript : MonoBehaviour
 
     [SerializeField] private float colorBrightnessModifier;
 
-     List<Image> imagesList = new List<Image>();
+    List<Image> imagesList = new List<Image>();
+
+    public List<Transform> transList = new();
     [SerializeField] private float distance = 5f;
 
     public bool showText;
+
+    public bool canShow = true;
     void Start()
     {
-       // ShowInfoText("this is dangerous", 3);
+        InvokeRepeating("IncinerateTheRemaining", 5, 2);
+      
+    }
+
+    void IncinerateTheRemaining()
+    {
+        if( prefabOrigin.childCount > 0 && imagesList.Count <= 0 )
+        {
+            Debug.Log("sometning is not deleted");
+            foreach(Transform t in prefabOrigin)
+            {
+                DOTween.Clear(t);
+                Destroy(t.GetComponentInChildren<TMP_Text>());
+                Destroy(t.gameObject); 
+            }
+        }
     }
 
     private Color DecreasedBrightnessOfColor( Color color)
@@ -41,6 +60,8 @@ public class ShowInfoTextScript : MonoBehaviour
 
     public void ShowInfoText(string infoText, int level)
     {
+        if (!canShow)
+            return;
         Color color ;
         
         switch (level)
@@ -80,10 +101,11 @@ public class ShowInfoTextScript : MonoBehaviour
     private IEnumerator KillImage(Image image)
     {
         yield return new WaitForSeconds(5f);
-        imagesList.Remove(image);
+        
         image.DOFade(0, 1f).OnComplete(() =>
         { Destroy(image.gameObject); });
         Destroy(image.GetComponentInChildren<TMP_Text>());
+        imagesList.Remove(image);
     }
 
     private void MovePrefab()

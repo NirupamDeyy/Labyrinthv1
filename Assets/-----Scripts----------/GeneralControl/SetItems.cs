@@ -26,7 +26,6 @@ public class SetItems : MonoBehaviour
     void Start()
     {
         itemSetterRect.gameObject.SetActive(false);
-
         setNumberOfItems.onClick.AddListener(() => SetTotalNumberOfItems());
         setDefaultNumberOfItems.onClick.AddListener(() => SetDefaultNumberOfItems());
         openItemSetterRect.onClick.AddListener(() => OpenCloseItemSetterRect());

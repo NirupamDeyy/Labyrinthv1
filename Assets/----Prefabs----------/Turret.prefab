@@ -2374,7 +2374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerParent: {fileID: 7779794214877220331}
   triggers: []
-  activatedColor: {r: 0.72327036, g: 0.4960505, b: 0, a: 1}
+  activatedColor: {r: 0.68235296, g: 0.85882354, b: 0, a: 1}
   unActivatedColor: {r: 0.45490196, g: 0.57254905, b: 0, a: 1}
 --- !u!114 &6079848288360428192
 MonoBehaviour:

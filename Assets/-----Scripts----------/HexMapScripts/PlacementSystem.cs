@@ -36,8 +36,6 @@ public class PlacementSystem : MonoBehaviour
 
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
-    
-
     [SerializeField]
     private bool isPlacing;
 
@@ -79,6 +77,7 @@ public class PlacementSystem : MonoBehaviour
     public void RemoveAll()
     {
         createProceduraly = true;
+        showInfoTextScript.canShow = false;
         StartRemoving();
         for (int x = -11; x <= 11; x++)
         {
@@ -90,6 +89,7 @@ public class PlacementSystem : MonoBehaviour
             }
         }
         createProceduraly = false;
+        showInfoTextScript.canShow = true;
     }
 
     public void StartRemoving()
@@ -108,8 +108,6 @@ public class PlacementSystem : MonoBehaviour
     public bool removeAll;
     int numberofWallToSpawn, numberofCoinsToSpawn, numberofTurretsToSpawn;
 
-
- 
     public IEnumerator GenerateProceduralMap()
     {
         itemTracking.isGeneratingProcedurally = true;
@@ -125,7 +123,7 @@ public class PlacementSystem : MonoBehaviour
         StartPlacement(1);
         CreateProceduralMap(numberofCoinsToSpawn + 10);
         StartPlacement(3);
-        CreateProceduralMap(numberofCoinsToSpawn + 10);
+        CreateProceduralMap(numberofTurretsToSpawn + 10);
         StopPlacement();
         yield return new WaitForSeconds(1);
         iswhatfalse();
@@ -165,13 +163,7 @@ public class PlacementSystem : MonoBehaviour
         itemTracking.isGeneratingProcedurally = false;
         removeAll = false;
     }
-    IEnumerator GenerateTile( Vector3Int pos)
-    {
-        yield return new WaitForSeconds(10);
-        Debug.Log(pos);
-        newPos = pos;
-        PlaceStructure();
-    }
+  
     public bool createProceduraly;
 
     private void PlaceStructure()
